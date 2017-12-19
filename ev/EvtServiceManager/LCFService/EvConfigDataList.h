@@ -1,0 +1,45 @@
+#ifndef _EV_CONFIG_DATA_LIST_H_
+#define _EV_CONFIG_DATA_LIST_H_
+
+#include <string>
+
+std::string EVT_configDataMonitorList[] =
+{
+    "eCallstatus",
+    "bCallstatus",
+    "AppModeECC",
+    "AppModeEH",
+    "AppModeEVC",
+    "AppModeEVR",
+    "AppModeSVT",
+    "AppModeHBD",
+    "EVC_GWM_BUSOPEN_TIME",
+    "EVC_IMC_IGNR_TIME",
+    "EVC_CHRG_PLUG_RMND_TIME",
+    "EVC_DEAD_BAND_TIME",
+    "EVC_EVI_PUSH_TIME",
+    "EVC_EVI_PUSH_PERC",
+    "EVC_IMC_WKUP_TIME",
+    "EVC_IMC_TF2_TIME",
+    "MAX_NUMBER_DEPT_TIMERS",
+    "EVR_EVI_LOC_PUSH_EN",
+    "EHORIZON_DATA_RX_TIMEOUT",
+    "ECC_DIRECT_PRECONDTIME",
+    "ECC_HVAC_NO_RESP_TIMEOUT",
+    "ECC_DIRECT_PRECOND_LIMIT_NO_RES",
+    "ECC_FEATURE_ENABLE_DISABLE",
+    "ECC_RES_REQUEST_APPROVAL_TIMEOUT",
+    "ECC_SETTING_TRIGGER_TIME",
+    "ECC_CAN_SETTING_IGNORE_TIME",
+    "ECC_CAN_STATUS_IGNORE_TIME",
+    "ECC_NM_TIMEOUT",
+    "HBD_CAN_READ_TIME",
+    "HBD_CAN_BUFFER_TIME",
+    "HBD_BUFFER_MAX_TIME",
+    "HBD_TCU_PUSH_TIME",
+    "HBD_BECM_SOFT_VER",
+    "HBD_MAX_BUFFER_NUMBER",
+    "ECW_CONFIG_ENABLE",
+    "ECW_TSP_WiFi_TIMEOUT"
+};
+#endif // _EV_CONFIG_DATA_LIST_H_

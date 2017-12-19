@@ -1,0 +1,7 @@
+#include "EvConfigReceiver.h"
+#include "EvDebugReceiver.h"
+#include "EvDiagReceiver.h"
+#include "EvNgtpReceiver.h"
+#include "EvPowerModeReceiver.h"
+#include "EvPowerStateReceiver.h"
+#include "EvVifReceiver.h"
