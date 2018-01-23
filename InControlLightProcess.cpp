@@ -16,7 +16,7 @@ void InControlLightProcess::handleTimerEvent(int timerId){
 
 }
 
-void InControlLightProcess::do_SpecialModeHandler(int32_t what, const sp<sl::Message> &message){
+void InControlLightProcess::doSpecialModeHandler(int32_t what, const sp<sl::Message> &message){
 
 }
 

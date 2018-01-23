@@ -7,9 +7,9 @@
 
 enum SpecialModeType
 {
-    DEMOMODE = 0,
-    IN_CONTROL_LIGHT = 1,    // what ?
-    UNKNOWN = 2
+    E_DEMOMODE = 0,           // run if specialmode has  provision
+    E_IN_CONTROL_LIGHT = 1,   // run without provision
+    E_UNKNOWN = 2             //
 };
 
 #endif // SPECIALMODETYPE_H

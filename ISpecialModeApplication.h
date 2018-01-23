@@ -20,7 +20,7 @@ public:
 
     virtual void setPropertyChar(const char* name, const char* value, bool sync_now = false) = 0;
     virtual void setPropertyInt(const char* name, const int32_t i_value, bool sync_now = true) = 0;
-    virtual void do_SpecialModeHandler(uint32_t what, const sp<sl::Message>& message) = 0;
+    virtual void doSpecialModeHandler(uint32_t what, const sp<sl::Message>& message) = 0;
 };
 
 #endif // ISPECIALMODEAPPLICATION_H

@@ -39,7 +39,8 @@
 
 #include "services/ConfigurationManagerService/IConfigurationManagerService.h"
 
-//#include "SpecialModeEvent.h"
+#include "SpecialModeEvent.h"
+
 
 
 #define SPECIALMODE_APPLICATION_ID 1013
@@ -113,7 +114,7 @@
 #define DEMOMODE_SLDD_OFF 0x200
 #define DEMOMODE_SLDD_TIME_UNIT 0x300
 #define DEMOMODE_SLDD_CMD 0x400
-
+#define DEMOMODE_SLDD_DEMO_STATUS 0x500
 #define DEMOMODE_SLDD_LOG_ON  0x1000
 #define DEMOMODE_SLDD_LOG_OFF 0x2000
 
@@ -129,18 +130,18 @@
 #define DEMOMODE_RES_SVT_ALARM_STATUS   3
 #define TIMEOUT_SVT_DURATION 2  //sec
 
-enum DEMO_MODE_STATUS{
-    DEMOMODE_STATUS_INIT   = 0,
-    DEMOMODE_STATUS_REQUEST,
-    DEMOMODE_STATUS_START,
-    DEMOMODE_STATUS_STOP,
-    DEMOMODE_STATUS_PENDING,
-    DEMOMODE_STATUS_MAX
+enum DemoModeStatus{
+    E_DEMOMODE_INIT   = 0,
+    E_DEMOMODE_REQUEST,
+    E_DEMOMODE_START,
+    E_DEMOMODE_STOP,
+    E_DEMOMODE_PENDING,
+    E_DEMOMODE_MAX
 };
 
-enum WCONNECT_STATUS {
-    WIFI_DISCONNECTED_DEMO = 6,         // cause Diag check
-    WIFI_CONNECTED_DEMO,
+enum WiFiStatus {
+    E_DISCONNECTED = 6,         // cause Diag check
+    E_CONNECTED,
 };
 
 #endif // SPECIALMODEDATATYPE_H

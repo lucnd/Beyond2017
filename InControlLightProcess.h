@@ -8,7 +8,7 @@ class InControlLightProcess : public SpecialModeBaseProcess
 public:
     InControlLightProcess();
     virtual ~InControlLightProcess();
-    virtual void do_SpecialModeHandler(int32_t what, const sp<sl::Message>& message);
+    virtual void doSpecialModeHandler(int32_t what, const sp<sl::Message>& message);
     virtual void handleTimerEvent(int timerId);
     virtual void handleEvent(uint32_t ev);
 
