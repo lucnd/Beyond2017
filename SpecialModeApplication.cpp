@@ -3,10 +3,18 @@
 #include <stdio.h>
 #include "SpecialModeApplication.h"
 #include "DemoModeProcess.h"
+#include "InControlLightProcess.h"
+#include "SpecialModeType.h"
 
 #include "HMIType.h"
 
+#include <inttypes.h>
+
+
+
 static android::sp<Application> gApp;
+
+uint32_t SpecialModeApplication::m_SpecialModeType = 0;
 
 
 SpecialModeApplication::SpecialModeApplication() : mp_SpecialModeProcess(NULL),mp_ReceiverMgr(NULL),m_AppAlive(false) {
@@ -19,63 +27,96 @@ SpecialModeApplication::~SpecialModeApplication() {
 
 void SpecialModeApplication::onCreate() {
 
-    LOGV("## SpecialMode for JLR TCU4: onCreate() and into in inActive State");
+    LOGV("## SpecialMode for JLR TCU4: onCreate() and into in inActive State: test PowerManagerService");
 
     m_Looper = sl::SLLooper::myLooper();
+
     if(m_Handler == NULL){
         m_Handler = new SpecialModeHandler(m_Looper, *this);
     }
-    LOGI("Pass create handler");
 
-    getServices();
-
-    // TODO need fix: new SpecialModeServicesManager() make crash App
-    // if(m_ServicesMgr == NULL) {
-    //     m_ServicesMgr   = new SpecialModeServicesManager();
-    // }
-    // LOGI("pass create service manager");
+     if(m_ServicesMgr == NULL) {
+        m_ServicesMgr   = new SpecialModeServicesManager();
+     }
 
     if(mp_ReceiverMgr == NULL){
-        mp_ReceiverMgr = new SpecialModeReceiverManager(m_Handler);
+        mp_ReceiverMgr = new SpecialModeReceiverManager(m_ServicesMgr, m_Handler);
         mp_ReceiverMgr->initializeReceiver();
     }
-    LOGI("Pass create receiver manager");
 
     m_AppAlive  = true;
-    initializeSpecialModeProcess();
+
+//    initializeSpecialModeProcess();    // if no need provisioning
+    doAfterProvision();
+
 }
 
 void SpecialModeApplication::onDestroy() {
     LOGV("onDestroy()");
 
-    // TODO prepare for phase 2
-    //  if(mp_SpecialModeProcess != NULL){
-    //     delete mp_SpecialModeProcess;
-    //     mp_SpecialModeProcess = NULL;
-    // }
+    doAfterUnprovision();
 
-    // if(mp_ReceiverMgr != NULL){
-    //     mp_ReceiverMgr->releaseReceiver();
-    //     delete mp_ReceiverMgr;
-    //     mp_ReceiverMgr = NULL;
-    // }
+    if(mp_SpecialModeProcess != NULL){
+        delete mp_SpecialModeProcess;
+        mp_SpecialModeProcess = NULL;
+    }
+    if(mp_ReceiverMgr != NULL){
+        mp_ReceiverMgr->releaseReceiver();
+        delete mp_ReceiverMgr;
+        mp_ReceiverMgr = NULL;
+    }
 
     ReadyToDestroy();
 }
 
-void SpecialModeApplication::getServices() {
-    m_AppMgr = interface_cast<IApplicationManagerService>(defaultServiceManager()
-                                                          ->getService(String16("service_layer.ApplicationManagerService")));
-    m_SystemMgr = interface_cast<ISystemManagerService>(defaultServiceManager()
-                                                          ->getService(String16("service_layer.SystemManagerService")));
-    m_NGTPMgr = interface_cast<INGTPManagerService>(defaultServiceManager()
-                                                          ->getService(String16("service_layer.NGTPManagerService")));
-    m_ConfigurationMgr = interface_cast<IConfigurationManagerService>(defaultServiceManager()
-                                                          ->getService(String16("service_layer.ConfigurationManagerService")));
+bool SpecialModeApplication::provisionSpecialMode() {
+    LOGI("## Starting provision SpecialMode");
+    uint32_t configVal = 0;
+    configVal = m_ServicesMgr->getConfigurationManager()->get_int(SPECIALMODE_CONFIG_FILE,2, SPECIALMODE_INCONTROL);
+    LOGI("configVal = %08x", configVal);
+    if((configVal >> INCONTROL_TYPE_WEIGHT) & 0x01) {
+        setSpecialModeType(E_IN_CONTROL_LIGHT);
+    }else {
+        setSpecialModeType(E_DEMOMODE);
+    }
+    LOGI("## Result after provision SpecialMode: %d ", m_SpecialModeType);
+    return true;
+}
 
+bool SpecialModeApplication::unprovisionSpecialMode() {
+    LOGI("## unprovision SpecialMode ");
+    return true;
+}
 
-    LOGI("## getServices(): m_AppMgr[%s]\n, m_SystemMgr[%s]\n, m_NGTP[%s]\n, m_Configuration[%s]\n",
-         m_AppMgr, m_SystemMgr, m_NGTPMgr, m_ConfigurationMgr);
+void SpecialModeApplication::doAfterProvision() {
+    if(provisionSpecialMode() == true){
+        setProvisioningFlag(true);
+        initializeSpecialModeProcess();
+    }else{
+        LOGE("%s : false", __func__);
+    }
+}
+
+void SpecialModeApplication::doAfterUnprovision() {
+    if(unprovisionSpecialMode() == true){
+//        mp_SpecialModeProcess->handleEvent(E_UNPROVISIONING);
+        releaseSpecialModeProcess();
+        setProvisioningFlag(false);
+    }else{
+        LOGE("%s : false", __func__);
+    }
+}
+
+uint32_t SpecialModeApplication::getSpecialModeType() {
+    return m_SpecialModeType;
+}
+
+void SpecialModeApplication::setSpecialModeType(uint32_t specialModeType) {
+    m_SpecialModeType = specialModeType;
+}
+
+void SpecialModeApplication::setProvisioningFlag(bool flag) {
+    m_ProvisioningFlag = flag;
 }
 
 void SpecialModeApplication::onPostReceived(const sp<Post>& post) {
@@ -88,24 +129,18 @@ void SpecialModeApplication::onPostReceived(const sp<Post>& post) {
 
 void SpecialModeApplication::doSpecialModeHandler(uint32_t what, const sp<sl::Message>& message) {
     LOGV("#########doSpecialModeHandler : what[%d],msgwhat[%d],msgarg1[%d]", what, message->what, message->arg1);
-    mp_SpecialModeProcess->doSpecialModeHandler(what, message);    // when specialmode process ready
+    mp_SpecialModeProcess->doSpecialModeHandler(what, message);
 }
 
 void SpecialModeApplication::initializeSpecialModeProcess(){
-    LOGI("initialize_SpceialModeProcess() SpecialMode Type");
-    mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
-    mp_SpecialModeProcess->initialize(this,m_Handler);
-
-    // TODO implement when config file release by JLR vendor
-    // if(m_SpecialModeType == IN_CONTROL_LIGHT){
-    //     mp_SpecialModeProcess = (SpecialModeBaseProcess*) new InControlLightProcess();
-    // }
-    // else{
-    //     mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
-    // }
-    //TODO ignore service because issues with them.
-    // mp_SpecialModeProcess->initialize(m_ServicesMgr, this, m_Handler);
-
+    LOGI("## initializeSpceialModeProcess() start");
+     if(m_SpecialModeType == E_IN_CONTROL_LIGHT){
+         mp_SpecialModeProcess = (SpecialModeBaseProcess*) new InControlLightProcess();
+     }
+     else{
+         mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
+     }
+     mp_SpecialModeProcess->initialize(m_ServicesMgr, this, m_Handler);
 }
 
 void SpecialModeApplication::releaseSpecialModeProcess(){

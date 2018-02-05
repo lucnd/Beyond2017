@@ -1,3 +1,4 @@
+#define LOG_TAG "SpecialModeApplication"
 #include "InControlLightProcess.h"
 
 InControlLightProcess::InControlLightProcess(){

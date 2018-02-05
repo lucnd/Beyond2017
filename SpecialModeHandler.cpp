@@ -1,3 +1,4 @@
+#define LOG_TAG "SpecialModeApplication"
 #include "SpecialModeHandler.h"
 
 SpecialModeHandler::~SpecialModeHandler(){

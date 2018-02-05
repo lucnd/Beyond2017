@@ -2,11 +2,12 @@
 
 common_sources:= \
         SpecialModeApplication.cpp \
-        SpecialModeServicesManager \
+        SpecialModeServicesManager.cpp \
         SpecialModeHandler.cpp \
         SpecialModeReceiverManager.cpp \
         SpecialModeBaseProcess.cpp \
         DemoModeTimer.cpp \
+        InControlLightProcess.cpp \
         DemoModeProcess.cpp
 
 # Target name DSO

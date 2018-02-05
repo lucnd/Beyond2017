@@ -1,3 +1,4 @@
+#define LOG_TAG "SpecialModeApplication"
 #include "SpecialModeReceiverManager.h"
 #include "SpecialModeHandler.h"
 
@@ -6,8 +7,12 @@
 #include <utils/Handler.h>
 
 
-SpecialModeReceiverManager::SpecialModeReceiverManager ( sp<sl::Handler> handler) {
+SpecialModeReceiverManager::SpecialModeReceiverManager (sp<SpecialModeServicesManager> serviceMgr, sp<sl::Handler> handler) {
     LOGI("## SpecialModeReceiverManager created!! ");
+
+    if (serviceMgr != NULL) {
+        m_ServicesMgr = serviceMgr;
+    }
 
     if(handler != NULL) {
         m_Handler   = handler;
@@ -22,6 +27,11 @@ SpecialModeReceiverManager::~SpecialModeReceiverManager() {
 
 bool SpecialModeReceiverManager::initializeReceiver() {
     LOGI("## initializeReceiver() called!!");
+
+    if(m_ServicesMgr == NULL) {
+        LOGE("## m_Service == NULL");
+         return false;
+    }
 
     if(m_Handler == NULL) {
         LOGE("## m_Handler == NULL");

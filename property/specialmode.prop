@@ -1,1 +1,7 @@
 prop.status=1
+demoModeState = 0
+demoModeTime = 0
+demoModeUserTime = 0
+demoChangeFlagBC = 0
+demoChangeFlagEC = 0
+demoModeWifiState = 0

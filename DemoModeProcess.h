@@ -12,6 +12,9 @@
 #include <utils/atoi.h>
 #include <time.h>
 
+#include <services/PowerManagerService/PowerLock.h>
+
+
 class DemoModeProcess : public SpecialModeBaseProcess
 {
 public:
@@ -21,26 +24,25 @@ public:
     virtual void handleTimerEvent(int timerId);
     virtual void doSpecialModeHandler(int32_t what, const sp<sl::Message>& message);
 
-    void doKeepPower();
-    void doreleaseKeepPower();
     void demoModeStart();
     void demoModeStop();
     void sendResponse(int32_t what, const sp<sl::Message>& message);
-    void activatePSIM();
-    void onPSimStateChanged(int32_t simAct, int32_t event, int32_t slot);
-    void onActiveSimStateChanged(int32_t activeSim);
-    void onPsimLockStateChanged(bool locked);
-    void checkEBcallStatus();
+    void checkBcallStatus();
+    void checkEcallStatus();
     void registerSVTpostReceiver();
     void demoModeClockReset();
-//    void setDisableEbcallStatus();  branch to 2 function below
-    void disableECall();
+
     void disableBCall();
+    void disableECall();
+
     bool turnOnDemoMode(uint8_t timeUnit, int32_t timeValue);
     bool turnOffDemoMode();
 
     int byteToInt1(byte data[], int idx);
     uint8_t getSVTConfig(const char* name);
+
+    void lockPowerMode();
+    void releasePoweMode();
 
 private:
     DemoModeTimerSet m_TimerSet;
@@ -50,6 +52,8 @@ private:
     bool m_SVTAlertStatus;
     int32_t m_RunningTime;
     uint8_t m_TimeUnit;
+
+    PowerLock* mp_PowerLock;
 
 
 protected:

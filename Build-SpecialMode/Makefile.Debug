@@ -76,8 +76,8 @@ DIST          = ../specialmode.json \
 		../SpecialModeEvent.h \
 		../SpecialModeHandler.h \
 		../SpecialModeReceiverManager.h \
-		../SpecialModeServicesManager.h \
-		../SpecialModeType.h ..\DemoModeProcess.cpp \
+		../SpecialModeType.h \
+		../SpecialModeServicesManager.h ..\DemoModeProcess.cpp \
 		..\DemoModeTimer.cpp \
 		..\InControlLightProcess.cpp \
 		..\SpecialModeApplication.cpp \
@@ -202,8 +202,7 @@ debug/DemoModeProcess.o: ../DemoModeProcess.cpp ../DemoModeProcess.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
@@ -215,7 +214,7 @@ debug/DemoModeProcess.o: ../DemoModeProcess.cpp ../DemoModeProcess.h \
 		E:/apps_proc/system/core/include/utils/Singleton.h \
 		E:/apps_proc/system/core/include/cutils/compiler.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		../SpecialModeEvent.h \
 		../SpecialModeBaseProcess.h \
 		../SpecialModeServicesManager.h \
 		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
@@ -224,19 +223,16 @@ debug/DemoModeProcess.o: ../DemoModeProcess.cpp ../DemoModeProcess.h \
 		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
 		E:/apps_proc/frameworks/native/include/binder/ProcessState.h \
 		E:/apps_proc/system/core/include/utils/String8.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
 		../ISpecialModeApplication.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
@@ -294,23 +290,54 @@ debug/DemoModeTimer.o: ../DemoModeTimer.cpp ../DemoModeTimer.h \
 		E:/apps_proc/system/core/include/utils/Compat.h \
 		E:/apps_proc/system/core/include/utils/RWLock.h \
 		E:/apps_proc/system/core/include/utils/Thread.h \
-		../SpecialModeDataType.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
 		E:/apps_proc/system/core/include/utils/Looper.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
-		E:/apps_proc/system/core/include/utils/Log.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
+		E:/apps_proc/system/core/include/utils/Singleton.h \
+		E:/apps_proc/system/core/include/cutils/compiler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		../ISpecialModeApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
+		../SpecialModeDataType.h \
+		E:/apps_proc/system/core/include/utils/Log.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
 		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
@@ -323,42 +350,7 @@ debug/DemoModeTimer.o: ../DemoModeTimer.cpp ../DemoModeTimer.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
-		E:/apps_proc/system/core/include/utils/Singleton.h \
-		E:/apps_proc/system/core/include/cutils/compiler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
-		../ISpecialModeApplication.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		../SpecialModeEvent.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\DemoModeTimer.o ..\DemoModeTimer.cpp
 
@@ -407,23 +399,54 @@ debug/InControlLightProcess.o: ../InControlLightProcess.cpp ../InControlLightPro
 		E:/apps_proc/system/core/include/utils/Compat.h \
 		E:/apps_proc/system/core/include/utils/RWLock.h \
 		E:/apps_proc/system/core/include/utils/Thread.h \
-		../SpecialModeDataType.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
 		E:/apps_proc/system/core/include/utils/Looper.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
-		E:/apps_proc/system/core/include/utils/Log.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
+		E:/apps_proc/system/core/include/utils/Singleton.h \
+		E:/apps_proc/system/core/include/cutils/compiler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		../ISpecialModeApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
+		../SpecialModeDataType.h \
+		E:/apps_proc/system/core/include/utils/Log.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
 		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
@@ -436,46 +459,16 @@ debug/InControlLightProcess.o: ../InControlLightProcess.cpp ../InControlLightPro
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
-		E:/apps_proc/system/core/include/utils/Singleton.h \
-		E:/apps_proc/system/core/include/cutils/compiler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
-		../ISpecialModeApplication.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		../SpecialModeEvent.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\InControlLightProcess.o ..\InControlLightProcess.cpp
 
-debug/SpecialModeApplication.o: ../SpecialModeApplication.cpp ../SpecialModeApplication.h \
+debug/SpecialModeApplication.o: ../SpecialModeApplication.cpp E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h \
+		E:/apps_proc/system/core/include/log/log.h \
+		E:/apps_proc/system/core/include/log/logd.h \
+		E:/apps_proc/system/core/include/android/log.h \
+		E:/apps_proc/system/core/include/log/uio.h \
+		../SpecialModeApplication.h \
 		../ISpecialModeApplication.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
@@ -501,10 +494,6 @@ debug/SpecialModeApplication.o: ../SpecialModeApplication.cpp ../SpecialModeAppl
 		E:/apps_proc/system/core/include/utils/TypeHelpers.h \
 		E:/apps_proc/system/core/include/utils/KeyedVector.h \
 		E:/apps_proc/system/core/include/cutils/log.h \
-		E:/apps_proc/system/core/include/log/log.h \
-		E:/apps_proc/system/core/include/log/logd.h \
-		E:/apps_proc/system/core/include/android/log.h \
-		E:/apps_proc/system/core/include/log/uio.h \
 		E:/apps_proc/system/core/include/utils/SortedVector.h \
 		E:/apps_proc/system/core/include/utils/Vector.h \
 		E:/apps_proc/system/core/include/utils/VectorImpl.h \
@@ -544,9 +533,35 @@ debug/SpecialModeApplication.o: ../SpecialModeApplication.cpp ../SpecialModeAppl
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
-		../SpecialModeHandler.h \
-		../SpecialModeDataType.h \
+		../SpecialModeServicesManager.h \
+		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
+		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
+		E:/apps_proc/frameworks/native/include/binder/ProcessState.h \
+		E:/apps_proc/system/core/include/utils/String8.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
+		../SpecialModeReceiverManager.h \
 		E:/apps_proc/system/core/include/utils/Log.h \
+		E:/apps_proc/lge/services/include/ServiceList.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/ITelephonyService.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/IPhoneStateListener.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/TelephonyManager.h \
+		../SpecialModeBaseProcess.h \
+		../SpecialModeDataType.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
 		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
@@ -559,40 +574,8 @@ debug/SpecialModeApplication.o: ../SpecialModeApplication.cpp ../SpecialModeAppl
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		../SpecialModeReceiverManager.h \
-		E:/apps_proc/lge/services/include/ServiceList.h \
-		../SpecialModeServicesManager.h \
-		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
-		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
-		E:/apps_proc/frameworks/native/include/binder/ProcessState.h \
-		E:/apps_proc/system/core/include/utils/String8.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/ITelephonyService.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/IPhoneStateListener.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/TelephonyManager.h \
-		../SpecialModeBaseProcess.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h \
 		../SpecialModeEvent.h \
+		../SpecialModeHandler.h \
 		../DemoModeProcess.h \
 		../DemoModeTimer.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/atoi.h \
@@ -645,23 +628,54 @@ debug/SpecialModeBaseProcess.o: ../SpecialModeBaseProcess.cpp ../SpecialModeBase
 		E:/apps_proc/system/core/include/utils/Compat.h \
 		E:/apps_proc/system/core/include/utils/RWLock.h \
 		E:/apps_proc/system/core/include/utils/Thread.h \
-		../SpecialModeDataType.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
 		E:/apps_proc/system/core/include/utils/Looper.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
-		E:/apps_proc/system/core/include/utils/Log.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
+		E:/apps_proc/system/core/include/utils/Singleton.h \
+		E:/apps_proc/system/core/include/cutils/compiler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		../ISpecialModeApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
+		../SpecialModeDataType.h \
+		E:/apps_proc/system/core/include/utils/Log.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
 		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
@@ -674,42 +688,7 @@ debug/SpecialModeBaseProcess.o: ../SpecialModeBaseProcess.cpp ../SpecialModeBase
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
-		E:/apps_proc/system/core/include/utils/Singleton.h \
-		E:/apps_proc/system/core/include/cutils/compiler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
-		../ISpecialModeApplication.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/ContextImpl.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/IApplication.h \
+		../SpecialModeEvent.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h \
 		../SpecialModeHandler.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SpecialModeBaseProcess.o ..\SpecialModeBaseProcess.cpp
@@ -784,8 +763,7 @@ debug/SpecialModeHandler.o: ../SpecialModeHandler.cpp ../SpecialModeHandler.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
@@ -797,7 +775,7 @@ debug/SpecialModeHandler.o: ../SpecialModeHandler.cpp ../SpecialModeHandler.h \
 		E:/apps_proc/system/core/include/utils/Singleton.h \
 		E:/apps_proc/system/core/include/cutils/compiler.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		../SpecialModeEvent.h \
 		../ISpecialModeApplication.h \
 		E:/apps_proc/frameworks/native/include/binder/IServiceManager.h \
 		E:/apps_proc/frameworks/native/include/binder/IPermissionController.h \
@@ -812,21 +790,21 @@ debug/SpecialModeHandler.o: ../SpecialModeHandler.cpp ../SpecialModeHandler.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SpecialModeHandler.o ..\SpecialModeHandler.cpp
 
 debug/SpecialModeReceiverManager.o: ../SpecialModeReceiverManager.cpp ../SpecialModeReceiverManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
+		../SpecialModeServicesManager.h \
+		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
 		E:/apps_proc/system/core/include/utils/Errors.h \
-		E:/apps_proc/frameworks/native/include/binder/Parcel.h \
-		E:/apps_proc/system/core/include/cutils/native_handle.h \
-		E:/apps_proc/system/core/include/utils/RefBase.h \
-		E:/apps_proc/system/core/include/cutils/atomic.h \
-		E:/apps_proc/system/core/include/cutils/stdatomic.h \
-		E:/apps_proc/system/core/include/utils/StrongPointer.h \
-		E:/apps_proc/system/core/include/utils/TypeHelpers.h \
 		E:/apps_proc/system/core/include/utils/String16.h \
 		E:/apps_proc/system/core/include/utils/SharedBuffer.h \
 		E:/apps_proc/system/core/include/utils/Unicode.h \
+		E:/apps_proc/system/core/include/utils/TypeHelpers.h \
+		E:/apps_proc/frameworks/native/include/binder/IServiceManager.h \
+		E:/apps_proc/frameworks/native/include/binder/IInterface.h \
+		E:/apps_proc/frameworks/native/include/binder/Binder.h \
+		E:/apps_proc/system/core/include/cutils/stdatomic.h \
+		E:/apps_proc/frameworks/native/include/binder/IBinder.h \
+		E:/apps_proc/system/core/include/utils/RefBase.h \
+		E:/apps_proc/system/core/include/cutils/atomic.h \
+		E:/apps_proc/system/core/include/utils/StrongPointer.h \
 		E:/apps_proc/system/core/include/utils/Vector.h \
 		E:/apps_proc/system/core/include/cutils/log.h \
 		E:/apps_proc/system/core/include/log/log.h \
@@ -834,45 +812,75 @@ debug/SpecialModeReceiverManager.o: ../SpecialModeReceiverManager.cpp ../Special
 		E:/apps_proc/system/core/include/android/log.h \
 		E:/apps_proc/system/core/include/log/uio.h \
 		E:/apps_proc/system/core/include/utils/VectorImpl.h \
+		E:/apps_proc/frameworks/native/include/binder/IPermissionController.h \
+		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
+		E:/apps_proc/frameworks/native/include/binder/Parcel.h \
+		E:/apps_proc/system/core/include/cutils/native_handle.h \
 		E:/apps_proc/system/core/include/utils/Flattenable.h \
 		E:/apps_proc/system/core/include/utils/Debug.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/frameworks/native/include/binder/ProcessState.h \
+		E:/apps_proc/system/core/include/utils/KeyedVector.h \
+		E:/apps_proc/system/core/include/utils/SortedVector.h \
+		E:/apps_proc/system/core/include/utils/String8.h \
+		E:/apps_proc/system/core/include/utils/threads.h \
+		E:/apps_proc/system/core/include/utils/AndroidThreads.h \
+		E:/apps_proc/system/core/include/utils/ThreadDefs.h \
+		E:/apps_proc/system/core/include/system/graphics.h \
+		E:/apps_proc/system/core/include/system/thread_defs.h \
 		E:/apps_proc/system/core/include/utils/Condition.h \
 		E:/apps_proc/system/core/include/utils/Mutex.h \
 		E:/apps_proc/system/core/include/utils/Timers.h \
 		E:/apps_proc/system/core/include/utils/Compat.h \
+		E:/apps_proc/system/core/include/utils/RWLock.h \
 		E:/apps_proc/system/core/include/utils/Thread.h \
-		E:/apps_proc/system/core/include/utils/ThreadDefs.h \
-		E:/apps_proc/system/core/include/system/graphics.h \
-		E:/apps_proc/system/core/include/system/thread_defs.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
+		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
 		E:/apps_proc/system/core/include/utils/Looper.h \
-		E:/apps_proc/system/core/include/utils/threads.h \
-		E:/apps_proc/system/core/include/utils/AndroidThreads.h \
-		E:/apps_proc/system/core/include/utils/RWLock.h \
-		E:/apps_proc/system/core/include/utils/KeyedVector.h \
-		E:/apps_proc/system/core/include/utils/SortedVector.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
-		E:/apps_proc/system/core/include/utils/Log.h \
-		E:/apps_proc/lge/services/include/ServiceList.h \
-		../SpecialModeServicesManager.h \
-		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
-		E:/apps_proc/frameworks/native/include/binder/IServiceManager.h \
-		E:/apps_proc/frameworks/native/include/binder/IInterface.h \
-		E:/apps_proc/frameworks/native/include/binder/Binder.h \
-		E:/apps_proc/frameworks/native/include/binder/IBinder.h \
-		E:/apps_proc/frameworks/native/include/binder/IPermissionController.h \
-		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
-		E:/apps_proc/frameworks/native/include/binder/ProcessState.h \
-		E:/apps_proc/system/core/include/utils/String8.h \
-		../SpecialModeDataType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
+		E:/apps_proc/system/core/include/utils/Singleton.h \
+		E:/apps_proc/system/core/include/cutils/compiler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
+		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
+		E:/apps_proc/system/core/include/utils/Log.h \
+		E:/apps_proc/lge/services/include/ServiceList.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/ITelephonyService.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/IPhoneStateListener.h \
+		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/TelephonyManager.h \
+		../SpecialModeHandler.h \
+		../SpecialModeDataType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
 		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
 		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
@@ -885,41 +893,7 @@ debug/SpecialModeReceiverManager.o: ../SpecialModeReceiverManager.cpp ../Special
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
-		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
-		E:/apps_proc/system/core/include/utils/Singleton.h \
-		E:/apps_proc/system/core/include/cutils/compiler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
-		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/ITelephonyService.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/IPhoneStateListener.h \
-		E:/apps_proc/lge/services/include/services/TelephonyManagerService/base/TelephonyManager.h \
-		../SpecialModeHandler.h \
+		../SpecialModeEvent.h \
 		../ISpecialModeApplication.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/application/Application.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/context/SystemContext.h \
@@ -928,12 +902,7 @@ debug/SpecialModeReceiverManager.o: ../SpecialModeReceiverManager.cpp ../Special
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SpecialModeReceiverManager.o ..\SpecialModeReceiverManager.cpp
 
-debug/SpecialModeServicesManager.o: ../SpecialModeServicesManager.cpp E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h \
-		E:/apps_proc/system/core/include/log/log.h \
-		E:/apps_proc/system/core/include/log/logd.h \
-		E:/apps_proc/system/core/include/android/log.h \
-		E:/apps_proc/system/core/include/log/uio.h \
-		../SpecialModeServicesManager.h \
+debug/SpecialModeServicesManager.o: ../SpecialModeServicesManager.cpp ../SpecialModeServicesManager.h \
 		E:/apps_proc/frameworks/native/include/binder/BinderService.h \
 		E:/apps_proc/system/core/include/utils/Errors.h \
 		E:/apps_proc/system/core/include/utils/String16.h \
@@ -950,6 +919,10 @@ debug/SpecialModeServicesManager.o: ../SpecialModeServicesManager.cpp E:/apps_pr
 		E:/apps_proc/system/core/include/utils/StrongPointer.h \
 		E:/apps_proc/system/core/include/utils/Vector.h \
 		E:/apps_proc/system/core/include/cutils/log.h \
+		E:/apps_proc/system/core/include/log/log.h \
+		E:/apps_proc/system/core/include/log/logd.h \
+		E:/apps_proc/system/core/include/android/log.h \
+		E:/apps_proc/system/core/include/log/uio.h \
 		E:/apps_proc/system/core/include/utils/VectorImpl.h \
 		E:/apps_proc/frameworks/native/include/binder/IPermissionController.h \
 		E:/apps_proc/frameworks/native/include/binder/IPCThreadState.h \
@@ -972,66 +945,44 @@ debug/SpecialModeServicesManager.o: ../SpecialModeServicesManager.cpp E:/apps_pr
 		E:/apps_proc/system/core/include/utils/Compat.h \
 		E:/apps_proc/system/core/include/utils/RWLock.h \
 		E:/apps_proc/system/core/include/utils/Thread.h \
-		../SpecialModeDataType.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Typedef.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Error.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Timer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Handler.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Message.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/MessageQueue.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
-		E:/apps_proc/system/core/include/utils/Looper.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
-		E:/apps_proc/system/core/include/utils/Log.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerService.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/TCUStatus.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IMgrReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/vifcansig.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/LGE_AppMsgProcess.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/viftxcansigval.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerStatusReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/vifManagerService/IvifManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerService.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigurationBuffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/CountryDBBuffer.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Buffer.h \
 		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerReceiver.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigXML.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/XMLUtil.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SystemService.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/Context.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/LogOutput.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SLDefine.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/corebase/SLManager.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Observer.h \
 		E:/apps_proc/lge/servicelayer/variant/service_layer/include/corebase/ServiceTable.h \
 		E:/apps_proc/lge/servicelayer/variant/service_layer/include/TCUProtocol.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooper.h \
+		E:/apps_proc/system/core/include/utils/Looper.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SLLooperThread.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/SystemProperty.h \
 		E:/apps_proc/system/core/include/utils/Singleton.h \
 		E:/apps_proc/system/core/include/cutils/compiler.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Xml_FileIO.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/ConfigDataStructure.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
-		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/SystemPost.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/utils/Post.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/ISystemPostReceiver.h \
 		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/ApplicationManagerService/IApplicationManagerServiceType.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPManagerService.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/InternalNGTPData.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/INGTPReceiver.h \
 		E:/apps_proc/lge/services/include/services/NGTPManagerService/NGTPDiagInfo.h \
-		E:/apps_proc/lge/services/include/services/WiFiManagerService/IWiFiManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DebugManagerService/IDebugManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/DiagManagerService/IDiagManagerServiceType.h \
-		E:/apps_proc/lge/services/include/services/ConfigurationManagerService/IConfigurationManagerServiceType.h
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerService.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemGPIOIntReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemManagerServiceType.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/services/SystemManagerService/ISystemReceiver.h \
+		E:/apps_proc/lge/servicelayer/core/service_layer/include/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SpecialModeServicesManager.o ..\SpecialModeServicesManager.cpp
 
 ####### Install

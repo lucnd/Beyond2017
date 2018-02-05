@@ -47,5 +47,5 @@ HEADERS += \
     ../SpecialModeEvent.h \
     ../SpecialModeHandler.h \
     ../SpecialModeReceiverManager.h \
-    ../SpecialModeServicesManager.h \
-    ../SpecialModeType.h
+    ../SpecialModeType.h \
+    ../SpecialModeServicesManager.h

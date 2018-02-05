@@ -1,3 +1,4 @@
+#define LOG_TAG "SpecialModeApplication"
 #include "DemoModeTimer.h"
 
 DemoModeTimerSet::DemoModeTimerSet() : m_InitFlag(false),mp_DemoModeTimerSet{0}{

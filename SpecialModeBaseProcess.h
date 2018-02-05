@@ -11,7 +11,7 @@ class SpecialModeBaseProcess
 
 public:
     SpecialModeBaseProcess();
-    void initialize(ISpecialModeApplication* pApp, sp<sl::Handler> handler);
+    void initialize(sp<SpecialModeServicesManager> servicesMgr,ISpecialModeApplication* pApp, sp<sl::Handler> handler);
     virtual ~SpecialModeBaseProcess();
     virtual void doSpecialModeHandler(int32_t what, const sp<sl::Message>& message) = 0;
     virtual void handleEvent(uint32_t ev) = 0;
@@ -19,6 +19,7 @@ public:
 
 protected:
     sp<sl::Handler> m_Handler;
+    sp<SpecialModeServicesManager> m_ServicesMgr;
     ISpecialModeApplication* mp_Application;
     TimerTimeoutHandler *mp_DemoModeTimer;
     virtual void initializeProcess() = 0;

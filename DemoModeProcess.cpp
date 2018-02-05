@@ -1,7 +1,11 @@
+#define LOG_TAG "SpecialModeApplication"
 #include "DemoModeProcess.h"
 #include "SpecialModeHandler.h"
 #include "SpecialModeType.h"
 #include <services/SystemManagerService/ISystemManagerService.h>
+#include <services/NGTPManagerService/INGTPManagerService.h>
+
+#include "ServiceList.h"
 
 
 uint8_t DEMOMODE_DEBUG  = 0;
@@ -11,21 +15,25 @@ static char* timeUnit_str[] = {"SECOND", "HOUR"};
 static char* activeSim_str[] = {"TSIM", "PSIM"};
 static int32_t demoModeChangeFlagEC = 0;
 static int32_t demoModeChangeFlagBC = 0;
-static uint8_t ecFlag;
-static uint8_t bcFlag;
+static uint8_t eCallFlag;
+static uint8_t bCallFlag;
 struct timespec tstart_demo = {0,};
 
-DemoModeProcess::DemoModeProcess() {
+DemoModeProcess::DemoModeProcess() : mp_PowerLock(NULL) {
     LOGI("## DemoModeProcess create.");
     m_RunningTime = 0;
     m_TimeUnit = TIME_HOUR;
     m_DemoModeStatus = E_DEMOMODE_INIT;
     m_WifiStatus =  E_CONNECTED;
+
+//    mp_PowerLock = new PowerLock(APP_ID_SPECIAL);
+    mp_PowerLock = new PowerLock(getpid());
 }
 
 DemoModeProcess::~DemoModeProcess() {
     LOGI("~DemoModeProcess()++");
-
+    checkBcallStatus();
+    checkEcallStatus();
     m_TimerSet.release();
 }
 
@@ -74,14 +82,14 @@ void DemoModeProcess::demoModeClockReset() {
 }
 
 void DemoModeProcess::doSpecialModeHandler(int32_t what,const sp<sl::Message>& message){
-//    int32_t arg1 = message->arg1;
-//    int32_t arg2 = message->arg2;
+    int32_t arg1 = message->arg1;
+    int32_t arg2 = message->arg2;
 //    int32_t arg3 = message->arg3;
 //    DLOGD("doSpecialModeHandler() what[%d],arg1[%d],arg2[%d],arg3[%d],buf size[%d]",what,arg1,arg2,arg3,message->buffer.size());
 
-//    hard code: wait after custom sldd of DCV suppport special mode app
-      uint8_t arg1 = 0x14;
-      int32_t arg2 = 0;
+//    hard code agr message
+//      uint8_t arg1 = 0x1E;  // time value (30s)
+//      int32_t arg2 = 0;     // time unit (0 = second, 1 = hour)
 
     if(message->buffer.size() > 0) {
         LOGD("buff[0]=%x buff[1]=%x buff[2]=%x buff[3]=%x",*(message->buffer.data()),*(message->buffer.data()+1),
@@ -116,20 +124,24 @@ void DemoModeProcess::doSpecialModeHandler(int32_t what,const sp<sl::Message>& m
     case DEMOMODE_SLDD_DEMO_STATUS:
         LOGD("DEMO MODE STATUS = %s",getDemoStatus());
         break;
-
-
     case RECV_MSG_FROM_WIFI_ON:
+        LOGI("## Wifi status is changing:\n "
+             "Before: E_DISCONNECTED \n "
+             "After: E_CONNECTED");
+
         setWifiStatus(E_CONNECTED);
         if(getDemoStatus() == E_DEMOMODE_PENDING) {
             setDemoStatus(E_DEMOMODE_START);
         }
            break;
     case RECV_MSG_FROM_WIFI_OFF:
+        LOGI("## Wifi status is changing:\n "
+             "Before: E_CONNECTED \n "
+             "After: E_DISCONNECTED");
         setWifiStatus(E_DISCONNECTED);
         if(getDemoStatus() == E_DEMOMODE_START) {
             setDemoStatus(E_DEMOMODE_PENDING);
         }
-
         break;
 
     default:
@@ -147,6 +159,14 @@ void DemoModeProcess::initializeProcess()
     setDemoStatus(E_DEMOMODE_INIT);
 }
 bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
+
+    // check wifi condition
+    if(getWifiStatus() != E_CONNECTED){
+        LOGI("## WIFI STATE IS DISCONNECTED");
+        LOGI("## DEMO MODE CAN NOT START");
+        setWifiStatus(E_DISCONNECTED);
+        return false;
+    }
 
     if(-1 == clock_gettime(CLOCK_MONOTONIC, &tstart_demo)) {
         LOGE("%s: Failed to call clock_gettime",__func__);
@@ -178,7 +198,7 @@ bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
 void DemoModeProcess::demoModeStart() {
     LOGD("%s() mTimeUnit[%s], mRunningTime[%d]", __func__, timeUnit_str[m_TimeUnit], m_RunningTime);
     // TODO prepare phase 2
-    // do_KeepPower();
+    lockPowerMode();
 
      if(m_TimeUnit == TIME_SEC) {
          LOGV("%s : %d seconds ", __func__, time);
@@ -192,10 +212,13 @@ void DemoModeProcess::demoModeStart() {
     // TODO phase 2
     // setDisableEbcallStatus();
 
+     disableBCall();
+     disableECall();
+
     // TODO wait for NGTP service ready
-    // sp<INGTPManagerService> iNGTP = interface_cast<INGTPManagerService>
-    //              (defaultServiceManager()->getService(String16( NGTPManagerService::getServiceName())));
-    // iNGTP->setDemoMode(true);
+     sp<INGTPManagerService> iNGTP = interface_cast<INGTPManagerService>
+                  (defaultServiceManager()->getService(String16("service_layer.NGTPManagerService")));
+     iNGTP->setDemoMode(true);
 
     LOGI("###################################################################");
     LOGI("####################   DEMO MODE WAS STARTED !.   ####################");
@@ -219,8 +242,16 @@ bool DemoModeProcess::turnOffDemoMode() {
 }
 
 void DemoModeProcess::demoModeStop() {
+
+    sp<INGTPManagerService> iNGTP = interface_cast<INGTPManagerService>
+                 (defaultServiceManager()->getService(String16("service_layer.NGTPManagerService")));
+    iNGTP->setDemoMode(false);
+
     demoModeClockReset();
     setDemoStatus(E_DEMOMODE_STOP);
+    releasePoweMode();
+
+
     LOGI("###################################################################");
     LOGI("####################   DEMO MODE WAS STOPPED.   ####################");
     LOGI("###################################################################");
@@ -229,6 +260,7 @@ void DemoModeProcess::demoModeStop() {
 void DemoModeProcess::setDemoStatus(DemoModeStatus status) {
     LOGD("%s: set value:%d", __func__, status);
     sp<Post> post;
+    sp<Post> postSVT;
     m_DemoModeStatus = status;
 
     switch(status)
@@ -281,4 +313,87 @@ void DemoModeProcess::setWifiStatus(WiFiStatus status){
 WiFiStatus DemoModeProcess::getWifiStatus(){
     LOGD("%s: getWifiStatus() return value:%d", __func__, m_WifiStatus);
     return m_WifiStatus;
+}
+
+void DemoModeProcess::checkBcallStatus() {
+    bCallFlag = m_ServicesMgr ->getConfigurationManager()
+            ->get_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC);
+    demoModeChangeFlagBC = sl::atoi(getPropertyWrap(PROPERTY_CHANGE_FLAG_BC));
+
+    LOGI("%s() bCallFlag property: %d", __func__, bCallFlag);
+    LOGI("%s() demoChangeFlagBC property: %d", __func__, demoModeChangeFlagBC);
+
+    if(demoModeChangeFlagBC == 1) {
+        if(bCallFlag == 0)
+            m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC,1);
+        else
+            m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC,0);
+        setPropertyInt(PROPERTY_CHANGE_FLAG_BC, 0);
+    }
+}
+
+void DemoModeProcess::checkEcallStatus() {
+    eCallFlag = m_ServicesMgr ->getConfigurationManager()
+            ->get_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC);
+    demoModeChangeFlagEC = sl::atoi(getPropertyWrap(PROPERTY_CHANGE_FLAG_EC));
+
+    LOGI("%s() bCallFlag property: %d", __func__, eCallFlag);
+    LOGI("%s() demoChangeFlagEC property: %d", __func__, demoModeChangeFlagEC);
+
+    if(demoModeChangeFlagEC == 1) {
+        if(eCallFlag == 0)
+            m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC,1);
+        else
+            m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC,0);
+        setPropertyInt(PROPERTY_CHANGE_FLAG_EC, 0);
+    }
+}
+
+void DemoModeProcess::disableBCall() {
+    bCallFlag = m_ServicesMgr->getConfigurationManager()->get_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC);
+
+    LOGI("%s() Check bcall status: bCallFlag=%d", __func__, bCallFlag);
+
+    if (bCallFlag == 1) {
+        LOGI("################# BCALL DISABLED !!#################");
+        setPropertyInt(PROPERTY_CHANGE_FLAG_BC, 1);
+        m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC, 0);
+    }
+}
+
+void DemoModeProcess::disableECall() {
+    eCallFlag = m_ServicesMgr->getConfigurationManager()->get_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC);
+
+    LOGI("%s() Check ecall status: eCallFlag=%d", __func__, eCallFlag);
+
+    if (eCallFlag == 1) {
+        LOGI("################# ECALL DISABLED !!#################");
+        setPropertyInt(PROPERTY_CHANGE_FLAG_EC, 1);
+        m_ServicesMgr->getConfigurationManager()->change_set_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC, 0);
+    }
+}
+
+void DemoModeProcess::lockPowerMode(){
+    LOGI("%s()", __func__);
+    LOGI("PowerLock Status before lock: %d", m_ServicesMgr->getPowerManager()->getPowerLockStatus());
+    if(m_CheckPower) {
+        LOGI("PowerMode already lock");
+    } else {
+        m_CheckPower = true;
+        mp_PowerLock->acquire();
+    }
+    LOGI("PowerLockStatus after lock: %d", m_ServicesMgr->getPowerManager()->getPowerLockStatus());
+
+}
+
+void DemoModeProcess::releasePoweMode(){
+    LOGI("%s()", __func__);
+    LOGI("PowerLock Status before release: %d", m_ServicesMgr->getPowerManager()->getPowerLockStatus());
+    if(m_CheckPower){
+        m_CheckPower = false;
+        mp_PowerLock->release();
+    } else {
+        LOGI("PowerMode already release");
+    }
+    LOGI("PowerLock Status after release: %d", m_ServicesMgr->getPowerManager()->getPowerLockStatus());
 }

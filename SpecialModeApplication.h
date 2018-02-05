@@ -18,17 +18,6 @@
 #include <services/ApplicationManagerService/ISystemPostReceiver.h>
 #include <services/ApplicationManagerService/IApplicationManagerService.h>
 
-#include <services/NGTPManagerService/INGTPManagerService.h>
-#include <services/ConfigurationManagerService/IConfigurationManagerReceiver.h>
-#include <services/ConfigurationManagerService/IConfigurationManagerServiceType.h>
-#include <services/ConfigurationManagerService/IConfigurationManagerService.h>
-#include <services/WiFiManagerService/IWiFiManagerService.h>
-#include <services/TelephonyManagerService/base/TelephonyManager.h>
-
-// for power manager
-#include <services/PowerManagerService/IPowerManagerService.h>
-#include <services/PowerManagerService/IPowerManagerServiceType.h>
-#include <PowerState.h>
 
 class SpecialModeApplication : public ISpecialModeApplication, public Application {
 
@@ -44,28 +33,37 @@ public:
     void setPropertyInt(const char* name, const int32_t i_value, bool sync_now);
     char* getPropertyWrap(const char* name);
 
+    void setSpecialModeType(uint32_t specialModeType);
+    virtual uint32_t getSpecialModeType();
+
 
 private:
+
+    static uint32_t m_SpecialModeType;
+
     sp<sl::SLLooper> m_Looper;
     sp<SpecialModeHandler> m_Handler;
-    sp<SpecialModeServicesManager> m_ServicesMgr;
     SpecialModeReceiverManager* mp_ReceiverMgr;
     SpecialModeBaseProcess* mp_SpecialModeProcess;
 
     bool m_AppAlive;
     bool m_ProvisioningFlag;
 
-    void initializeSpecialModeProcess();
 
     sp<IApplicationManagerService>      m_AppMgr;
     sp<ISystemManagerService>           m_SystemMgr;
     sp<INGTPManagerService>             m_NGTPMgr;
-    sp<IWiFiManagerService>             m_WifiMgr;
     sp<IConfigurationManagerService>    m_ConfigurationMgr;
     sp<telephony::ITelephonyService>    m_TelephonyMgr;
-    sp<IPowerManagerService>            m_PowerMgr;
+    sp<SpecialModeServicesManager>      m_ServicesMgr;
 
-    void getServices();
+    void initializeSpecialModeProcess();
+
+    bool provisionSpecialMode();
+    bool unprovisionSpecialMode();
+    void setProvisioningFlag(bool flag);
+    void doAfterProvision();
+    void doAfterUnprovision();
 
 };
 #endif // _SPECIALMODE_APPLICATION_H_

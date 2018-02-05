@@ -1,3 +1,4 @@
+#define LOG_TAG "SpecialModeApplication"
 #include <sys/stat.h>
 #include "SpecialModeBaseProcess.h"
 #include "SpecialModeHandler.h"
@@ -16,10 +17,10 @@ SpecialModeBaseProcess::~SpecialModeBaseProcess(){
     LOGV("## ~SpceialModeBaseProcess() destructor called.");
 }
 
-void SpecialModeBaseProcess::initialize(ISpecialModeApplication* pApp, sp<sl::Handler> handler){
+void SpecialModeBaseProcess::initialize(sp<SpecialModeServicesManager> servicesMgr,ISpecialModeApplication* pApp, sp<sl::Handler> handler){
     LOGV("## SpecialModeBaseProcess::initialize() called.");
     // TODO prepare for phase 2
-    // m_ServicesMgr   = servicesMgr;
+    m_ServicesMgr   = servicesMgr;
     mp_Application  = pApp;
     m_Handler       = handler;
 

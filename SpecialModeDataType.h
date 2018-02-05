@@ -34,8 +34,7 @@
 #include "services/vifManagerService/IvifManagerService.h"
 #include "services/vifManagerService/IvifManagerReceiver.h"
 
-//#include "services/PowerManagerService/PowerManagerService.h"
-//#include "services/PowerManagerService/IPowerModeReceiver.h"
+
 
 #include "services/ConfigurationManagerService/IConfigurationManagerService.h"
 
@@ -129,6 +128,11 @@
 #define DEMOMODE_RES_SVT_ALERT_STATUS   2
 #define DEMOMODE_RES_SVT_ALARM_STATUS   3
 #define TIMEOUT_SVT_DURATION 2  //sec
+
+/*----------------For Path Finding-----------------*/
+#define SPECIALMODE_CONFIG_FILE "jlr_tcu_data_dictionary_swr_9_3.xml"
+#define SPECIALMODE_INCONTROL "telematics2"
+#define INCONTROL_TYPE_WEIGHT 7
 
 enum DemoModeStatus{
     E_DEMOMODE_INIT   = 0,

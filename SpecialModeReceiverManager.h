@@ -14,7 +14,7 @@ class SpecialModeReceiverManager
 {
 
 public:
-    SpecialModeReceiverManager( sp<sl::Handler> handler);
+    SpecialModeReceiverManager( sp<SpecialModeServicesManager> serviceMgr, sp<sl::Handler> handler);
     virtual ~SpecialModeReceiverManager();
 
     bool initializeReceiver();
@@ -32,7 +32,7 @@ private:
     sp<sl::Handler> m_Handler;
     // TODO prepare for phase 2
 //    sp<IMgrReceiver> m_DebugReceiver;
-//    sp<SpecialModeServicesManager> m_ServicesMgr;
+    sp<SpecialModeServicesManager> m_ServicesMgr;
 //    sp<IDiagManagerReceiver> m_SpecialModeDiagReceiver;
 //    sp<TelephonyListener> m_TelephonyListener;
 //    sp<IWiFiManagerService> mWifiService;
