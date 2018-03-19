@@ -1,7 +1,6 @@
 #ifndef ISPECIALMODEAPPLICATION_H
 #define ISPECIALMODEAPPLICATION_H
 
-
 #include <utils/SLLooper.h>
 #include <utils/Handler.h>
 #include <binder/IServiceManager.h>

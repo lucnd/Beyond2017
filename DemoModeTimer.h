@@ -19,7 +19,7 @@ class DemoModeTimerSet
 public:
 
     static const uint32_t TIMER_DEMOMODE_ACTIVE = 0;
-    static const uint32_t TIMER_SVT_ANSWER= 1;
+    static const uint32_t TIMER_SVT_ANSWER      = 1;
 
     DemoModeTimerSet();
     virtual ~DemoModeTimerSet();

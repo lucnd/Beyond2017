@@ -19,7 +19,6 @@ SpecialModeBaseProcess::~SpecialModeBaseProcess(){
 
 void SpecialModeBaseProcess::initialize(sp<SpecialModeServicesManager> servicesMgr,ISpecialModeApplication* pApp, sp<sl::Handler> handler){
     LOGV("## SpecialModeBaseProcess::initialize() called.");
-    // TODO prepare for phase 2
     m_ServicesMgr   = servicesMgr;
     mp_Application  = pApp;
     m_Handler       = handler;

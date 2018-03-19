@@ -19,6 +19,14 @@
 #include "services/PowerManagerService/IPowerManagerServiceType.h"
 #include "services/PowerManagerService/IPowerManagerService.h"
 
+#include "services/WiFiManagerService/IWiFiManagerService.h"
+#include "services/WiFiManagerService/IWiFiManagerServiceType.h"
+
+#include "services/DiagManagerService/IDiagManagerServiceType.h";
+#include "services/DiagManagerService/IDiagManagerService.h";
+#include "services/DiagManagerService/IDiagManagerReceiver.h";
+
+
 class SpecialModeServicesManager : public RefBase
 {
 public:
@@ -30,6 +38,8 @@ public:
     sp<ISystemManagerService>           getSystemManager();
     sp<INGTPManagerService>             getNGTPManager();
     sp<IPowerManagerService>            getPowerManager();
+    sp<IWiFiManagerService>             getWiFiManager();
+    sp<IDiagManagerService>             getDiagManager();
 
 private:
     sp<IConfigurationManagerService>    m_ConfigurationMgr;
@@ -37,7 +47,8 @@ private:
     sp<ISystemManagerService>           m_SystemMgr;
     sp<INGTPManagerService>             m_NGTPMgr;
     sp<IPowerManagerService>            m_PowerMgr;
+
+    sp<IWiFiManagerService>             m_WiFiMgr;
+    sp<IDiagManagerService>             m_DiagMgr;
 };
-
-
 #endif // SPECIALMODESERVICESMANAGER_H

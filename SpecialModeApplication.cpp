@@ -27,7 +27,7 @@ SpecialModeApplication::~SpecialModeApplication() {
 
 void SpecialModeApplication::onCreate() {
 
-    LOGV("## SpecialMode for JLR TCU4: onCreate() and into in inActive State: test PowerManagerService");
+    LOGV("## SpecialMode for JLR TCU4: onCreate() and into in inActive State");
 
     m_Looper = sl::SLLooper::myLooper();
 

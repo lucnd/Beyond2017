@@ -2,7 +2,7 @@
 #include "InControlLightProcess.h"
 
 InControlLightProcess::InControlLightProcess(){
-    LOGV("#### InControlLightProcess create");
+    LOGV("## InControlLightProcess create");
 }
 
 InControlLightProcess::~InControlLightProcess(){

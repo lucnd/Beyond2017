@@ -6,6 +6,7 @@
 #include <services/NGTPManagerService/INGTPManagerService.h>
 
 #include "ServiceList.h"
+#include <utils/Buffer.h>
 
 
 uint8_t DEMOMODE_DEBUG  = 0;
@@ -26,7 +27,6 @@ DemoModeProcess::DemoModeProcess() : mp_PowerLock(NULL) {
     m_DemoModeStatus = E_DEMOMODE_INIT;
     m_WifiStatus =  E_CONNECTED;
 
-//    mp_PowerLock = new PowerLock(APP_ID_SPECIAL);
     mp_PowerLock = new PowerLock(getpid());
 }
 
@@ -34,6 +34,11 @@ DemoModeProcess::~DemoModeProcess() {
     LOGI("~DemoModeProcess()++");
     checkBcallStatus();
     checkEcallStatus();
+
+    if(mp_PowerLock != NULL){
+        delete mp_PowerLock;
+    }
+
     m_TimerSet.release();
 }
 
@@ -85,11 +90,6 @@ void DemoModeProcess::doSpecialModeHandler(int32_t what,const sp<sl::Message>& m
     int32_t arg1 = message->arg1;
     int32_t arg2 = message->arg2;
 //    int32_t arg3 = message->arg3;
-//    DLOGD("doSpecialModeHandler() what[%d],arg1[%d],arg2[%d],arg3[%d],buf size[%d]",what,arg1,arg2,arg3,message->buffer.size());
-
-//    hard code agr message
-//      uint8_t arg1 = 0x1E;  // time value (30s)
-//      int32_t arg2 = 0;     // time unit (0 = second, 1 = hour)
 
     if(message->buffer.size() > 0) {
         LOGD("buff[0]=%x buff[1]=%x buff[2]=%x buff[3]=%x",*(message->buffer.data()),*(message->buffer.data()+1),
@@ -144,6 +144,30 @@ void DemoModeProcess::doSpecialModeHandler(int32_t what,const sp<sl::Message>& m
         }
         break;
 
+    case RECV_MSG_FROM_CONFIG:
+        LOGV("Receive message from config change");
+        char* name = message->buffer.data();
+        LOGI("#### buffer.data = %s", name);
+        if(strcmp(DEMOMODE_APP_MODE_BC, name) == 0 || strcmp(DEMOMODE_APP_MODE_EC, name)) {
+            bCallFlag = m_ServicesMgr->getConfigurationManager()->get_int(SPCIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC);
+            eCallFlag = m_ServicesMgr->getConfigurationManager()->get_int(SPCIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC);
+            LOGV("%s() EBCALL RECV_MSG_FROM_CONFIG bcFlag=%d, ecFlag=%d", __func__, bCallFlag, eCallFlag);
+
+            if ((getDemoStatus() == E_DEMOMODE_START) ||(getDemoStatus() == E_DEMOMODE_PENDING)) {
+                if (bCallFlag == 1) {
+                    m_ServicesMgr->getConfigurationManager()->change_set_int(SPCIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC, 0);
+                    turnOffDemoMode();
+                }
+                else if (eCallFlag == 1) {
+                    m_ServicesMgr->getConfigurationManager()->change_set_int(SPCIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_EC, 0);
+                    turnOffDemoMode();
+                }
+            }
+        else
+            LOGV("%s() SPECIAL MODE NOT START or PENDING !!", __func__);
+    }
+        break;
+
     default:
         break;
     }
@@ -157,6 +181,8 @@ void DemoModeProcess::initializeProcess()
     m_TimerSet.initialize(mp_DemoModeTimer);
     demoModeClockReset();
     setDemoStatus(E_DEMOMODE_INIT);
+    checkBcallStatus();
+    checkEcallStatus();
 }
 bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
 
@@ -197,33 +223,23 @@ bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
 
 void DemoModeProcess::demoModeStart() {
     LOGD("%s() mTimeUnit[%s], mRunningTime[%d]", __func__, timeUnit_str[m_TimeUnit], m_RunningTime);
-    // TODO prepare phase 2
+
     lockPowerMode();
 
-     if(m_TimeUnit == TIME_SEC) {
-         LOGV("%s : %d seconds ", __func__, time);
-         m_TimerSet.startTimer(0, m_RunningTime);        // unit:Seconds (for only TEST)
-     }
-     else {
-         LOGV("%s : %d hours ", __func__, time);
-         m_TimerSet.startTimer(0, m_RunningTime * 3600); // unit:Hours
-     }
-     setDemoStatus(E_DEMOMODE_START);
-    // TODO phase 2
-    // setDisableEbcallStatus();
+    if(m_TimeUnit == TIME_SEC) {
+        LOGV("%s : %d seconds ", __func__, time);
+        m_TimerSet.startTimer(0, m_RunningTime);        // unit:Seconds (for only TEST)
+    }
+    else {
+        LOGV("%s : %d hours ", __func__, time);
+        m_TimerSet.startTimer(0, m_RunningTime * 3600); // unit:Hours
+    }
+    setDemoStatus(E_DEMOMODE_START);
 
-     disableBCall();
-     disableECall();
-
-    // TODO wait for NGTP service ready
-     sp<INGTPManagerService> iNGTP = interface_cast<INGTPManagerService>
-                  (defaultServiceManager()->getService(String16("service_layer.NGTPManagerService")));
-     iNGTP->setDemoMode(true);
-
-    LOGI("###################################################################");
+    disableBCall();
+    disableECall();
+    m_ServicesMgr ->getNGTPManager()->setDemoMode(true);
     LOGI("####################   DEMO MODE WAS STARTED !.   ####################");
-    LOGI("###################################################################");
-
 }
 
 bool DemoModeProcess::turnOffDemoMode() {
@@ -232,66 +248,62 @@ bool DemoModeProcess::turnOffDemoMode() {
         demoModeStop();
     }
     else {
-        LOGI("###################################################################");
         LOGI("####################   DEMO MODE WAS ALREADY STOPPED.   ####################");
-        LOGI("###################################################################");
         return false;
     }
-
     return true;
 }
 
 void DemoModeProcess::demoModeStop() {
 
-    sp<INGTPManagerService> iNGTP = interface_cast<INGTPManagerService>
-                 (defaultServiceManager()->getService(String16("service_layer.NGTPManagerService")));
-    iNGTP->setDemoMode(false);
-
+    m_ServicesMgr->getNGTPManager()->setDemoMode(false);
     demoModeClockReset();
     setDemoStatus(E_DEMOMODE_STOP);
     releasePoweMode();
+    checkBcallStatus();
+    checkEcallStatus();
 
-
-    LOGI("###################################################################");
     LOGI("####################   DEMO MODE WAS STOPPED.   ####################");
-    LOGI("###################################################################");
 }
 
 void DemoModeProcess::setDemoStatus(DemoModeStatus status) {
     LOGD("%s: set value:%d", __func__, status);
     sp<Post> post;
-    sp<Post> postSVT;
+//    sp<Post> postSVT;
     m_DemoModeStatus = status;
+    setPropertyInt(PROPERTY_DEMO_STATUS, m_DemoModeStatus);
 
     switch(status)
     {
     case E_DEMOMODE_START:
 
-          LOGD("## broadcast post:: DEMO MODE START");
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_START);
-//        m_AppMgr->broadcastSystemPost(post);
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_START);
-//        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
-//        postSVT = Post::obtain((appid_t)APP_ID_SPECIAL, mDemoModeStatus);
-//        m_ServicesMgr->getApplicationManager()->sendPost((appid_t)APP_ID_SVT, postSVT);
+        LOGD("## broadcast post:: DEMO MODE START");
+        post = Post::obtain(0);
+        post->action = "post.action.SEND_CALL";
+        post->what = 0;   // wait for define
+        post->arg1 = 1;
+        post->arg2 = 2;
+        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
         break;
-    case E_DEMOMODE_STOP:
 
-          LOGD("## broadcast post:: DEMO MODE END");
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_END);
-//        m_AppMgr->broadcastSystemPost(post);
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_END);
-//        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
-//        postSVT = Post::obtain((appid_t)APP_ID_SPECIAL, mDemoModeStatus);
-//        m_ServicesMgr->getApplicationManager()->sendPost((appid_t)APP_ID_SVT, postSVT);
+    case E_DEMOMODE_STOP:
+        LOGD("## broadcast post:: DEMO MODE END");
+        post = Post::obtain(0);
+        post->action = "post.action.SEND_CALL";
+        post->what = 0;
+        post->arg1 = 1;
+        post->arg2 = 2;
+        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
         break;
 
     case E_DEMOMODE_PENDING:
-          LOGD("## broadcast post:: DEMO MODE PENDING");
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_START);
-//        m_AppMgr->broadcastSystemPost(post);
-//        post = Post::obtain(SYS_POST_DEMO_MODE, SYS_POST_DEMO_MODE_PENDING);
-//        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
+        LOGD("## broadcast post:: DEMO MODE PENDING");
+        post = Post::obtain(0);
+        post->action = "post.action.SEND_CALL";
+        post->what = 0;
+        post->arg1 = 1;
+        post->arg2 = 2;
+        m_ServicesMgr->getApplicationManager()->broadcastSystemPost(post);
         break;
 
     default:
@@ -300,7 +312,7 @@ void DemoModeProcess::setDemoStatus(DemoModeStatus status) {
 }
 
 DemoModeStatus DemoModeProcess::getDemoStatus(){
-     LOGD("%s: return value:%d", __func__, m_DemoModeStatus);
+    LOGD("%s: return value:%d", __func__, m_DemoModeStatus);
     return m_DemoModeStatus;
 }
 
@@ -348,6 +360,7 @@ void DemoModeProcess::checkEcallStatus() {
         setPropertyInt(PROPERTY_CHANGE_FLAG_EC, 0);
     }
 }
+
 
 void DemoModeProcess::disableBCall() {
     bCallFlag = m_ServicesMgr->getConfigurationManager()->get_int(SPECIALMODE_CONFIG_FILE, 2, DEMOMODE_APP_MODE_BC);

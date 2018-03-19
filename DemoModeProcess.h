@@ -19,7 +19,7 @@ class DemoModeProcess : public SpecialModeBaseProcess
 {
 public:
     DemoModeProcess();
-    virtual ~DemoModeProcess();    
+    virtual ~DemoModeProcess();
     virtual void handleEvent(uint32_t ev);
     virtual void handleTimerEvent(int timerId);
     virtual void doSpecialModeHandler(int32_t what, const sp<sl::Message>& message);

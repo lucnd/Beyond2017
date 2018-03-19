@@ -7,8 +7,6 @@
 #include "SpecialModeBaseProcess.h"
 #include "SpecialModeHandler.h"
 
-
-
 #include <utils/SLLooper.h>
 #include <utils/Handler.h>
 #include <binder/IServiceManager.h>

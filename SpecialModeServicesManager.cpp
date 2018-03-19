@@ -2,20 +2,21 @@
 #include "SpecialModeServicesManager.h"
 #include <Log.h>
 
-SpecialModeServicesManager::SpecialModeServicesManager() : m_ConfigurationMgr(NULL), m_ApplicationMgr(NULL), m_SystemMgr(NULL), m_NGTPMgr(NULL), m_PowerMgr(NULL)
+SpecialModeServicesManager::SpecialModeServicesManager() :
+    m_ConfigurationMgr(NULL), m_ApplicationMgr(NULL), m_SystemMgr(NULL), m_NGTPMgr(NULL), m_PowerMgr(NULL), m_DiagMgr(NULL)
 {
     LOGI("## SpecialModeServicesManager created!!");
 
     m_ConfigurationMgr  = interface_cast<IConfigurationManagerService>(defaultServiceManager()
-                                                                        ->getService(String16(CONFIGURATION_SRV_NAME)));
+                                            ->getService(String16(CONFIGURATION_SRV_NAME)));
     m_ApplicationMgr    = interface_cast<IApplicationManagerService>(defaultServiceManager()
-                                                                        ->getService(String16(APPLICATION_SRV_NAME)));
+                                            ->getService(String16(APPLICATION_SRV_NAME)));
     m_SystemMgr         = interface_cast<ISystemManagerService>(defaultServiceManager()
-                                                                        ->getService(String16(SYSTEM_SRV_NAME)));
+                                            ->getService(String16(SYSTEM_SRV_NAME)));
     m_NGTPMgr           = interface_cast<INGTPManagerService>(defaultServiceManager()
-                                                                        ->getService(String16("NGTP_SRV_NAME")));
+                                            ->getService(String16(NGTP_SRV_NAME)));
     m_PowerMgr          = interface_cast<IPowerManagerService>(defaultServiceManager()
-                                                                        ->getService(String16(POWER_SRV_NAME)));
+                                            ->getService(String16(POWER_SRV_NAME)));
 }
 
 SpecialModeServicesManager::~SpecialModeServicesManager(){
@@ -41,3 +42,8 @@ sp<INGTPManagerService> SpecialModeServicesManager::getNGTPManager(){
 sp<IPowerManagerService> SpecialModeServicesManager::getPowerManager(){
     return m_PowerMgr;
 }
+
+sp<IDiagManagerService> SpecialModeServicesManager::getDiagManager(){
+    return m_DiagMgr;
+}
+

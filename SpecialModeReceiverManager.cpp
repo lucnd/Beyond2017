@@ -37,8 +37,24 @@ bool SpecialModeReceiverManager::initializeReceiver() {
         LOGE("## m_Handler == NULL");
          return false;
     }
-    if(m_IsInitialize == true)
+
+    if(m_IsInitialize == true) {
+
         return true;
+    }
+    // register configuration event
+    if(m_configManager == NULL) {
+        m_configReceiver = new SpecialModeConfigurationReceiver(*this);
+        m_configManager = m_ServicesMgr->getConfigurationManager();
+        m_configManager->registerReceiver(SPCIALMODE_CONFIG_FILE, DEMOMODE_APP_MODE_SVT, m_configReceiver);
+        m_configManager->registerReceiver(SPCIALMODE_CONFIG_FILE, DEMOMODE_APP_MODE_EC,  m_configReceiver);
+        m_configManager->registerReceiver(SPCIALMODE_CONFIG_FILE, DEMOMODE_APP_MODE_BC,  m_configReceiver);
+    }
+
+    // register wifi state event
+    if(m_WiFiService == NULL) {
+        // TODO
+    }
 
     m_IsInitialize =true;
     return true;
@@ -53,6 +69,16 @@ void SpecialModeReceiverManager::setHandler(sp<sl::Handler> handler) {
         return;
     }
     m_Handler = handler;
+}
+
+void SpecialModeReceiverManager::SpecialModeConfigurationReceiver::onConfigDataChanged(sp<Buffer>& name) {
+    LOGV("%s() onConfigDataChanged(), name_buf:%s",__func__, name->data());
+
+    sp<sl::Message> messsage = mr_ReceiverMgr.m_Handler->obtainMessage(RECV_MSG_FROM_CONFIG);
+    if(name->size() > 0) {
+        messsage->buffer.setTo(name->data(), name->size());
+    }
+    messsage->sendToTarget();
 }
 
 #undef LOG_TAG
