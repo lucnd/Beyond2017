@@ -9,14 +9,21 @@ SpecialModeServicesManager::SpecialModeServicesManager() :
 
     m_ConfigurationMgr  = interface_cast<IConfigurationManagerService>(defaultServiceManager()
                                             ->getService(String16(CONFIGURATION_SRV_NAME)));
+
     m_ApplicationMgr    = interface_cast<IApplicationManagerService>(defaultServiceManager()
                                             ->getService(String16(APPLICATION_SRV_NAME)));
+
     m_SystemMgr         = interface_cast<ISystemManagerService>(defaultServiceManager()
                                             ->getService(String16(SYSTEM_SRV_NAME)));
+
     m_NGTPMgr           = interface_cast<INGTPManagerService>(defaultServiceManager()
                                             ->getService(String16(NGTP_SRV_NAME)));
+
     m_PowerMgr          = interface_cast<IPowerManagerService>(defaultServiceManager()
                                             ->getService(String16(POWER_SRV_NAME)));
+
+    m_DiagMgr           = interface_cast<IDiagManagerService>(defaultServiceManager()
+                                            ->getService(String16(DIAG_SRV_NAME)));
 }
 
 SpecialModeServicesManager::~SpecialModeServicesManager(){

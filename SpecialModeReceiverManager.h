@@ -52,7 +52,7 @@ private:
     sp<SpecialModeServicesManager>      m_ServicesMgr;
     sp<IConfigurationManagerService>    m_configManager;
     sp<IConfigurationManagerReceiver>   m_configReceiver;
-    sp<IWiFiManagerService>             m_WiFiService;
+//    sp<IWiFiManagerService>             m_WiFiService;
 //    sp<IWiFiManagerReceiver>            m_WiFiReceiver;
 };
 
