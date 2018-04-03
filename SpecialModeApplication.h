@@ -6,7 +6,7 @@
 #include "SpecialModeReceiverManager.h"
 #include "SpecialModeBaseProcess.h"
 #include "SpecialModeHandler.h"
-
+#include <string>
 #include <utils/SLLooper.h>
 #include <utils/Handler.h>
 #include <binder/IServiceManager.h>
@@ -25,29 +25,22 @@ public:
     virtual void onCreate();
     virtual void onDestroy();
     virtual void onPostReceived(const sp<Post>& post);
-    virtual void doSpecialModeHandler(uint32_t what, const sp<sl::Message>& message);
+    virtual void doSpecialModeHandler(const sp<sl::Message>& message);
     void releaseSpecialModeProcess();
     void setPropertyChar(const char* name, const char* value, bool sync_now);
     void setPropertyInt(const char* name, const int32_t i_value, bool sync_now);
-    char* getPropertyWrap(const char* name);
+    std::string getPropertyWrap(const char* name) override;
 
     void setSpecialModeType(uint32_t specialModeType);
     virtual uint32_t getSpecialModeType();
 
-
-private:
-
-    static uint32_t m_SpecialModeType;
-
-    sp<sl::SLLooper> m_Looper;
-    sp<SpecialModeHandler> m_Handler;
-    SpecialModeReceiverManager* mp_ReceiverMgr;
-    SpecialModeBaseProcess* mp_SpecialModeProcess;
-
-    bool m_AppAlive;
-    bool m_ProvisioningFlag;
-
-
+#ifdef G_TEST
+public:
+    static uint32_t                     m_SpecialModeType;
+    sp<sl::SLLooper>                    m_Looper;
+    SpecialModeReceiverManager*         mp_ReceiverMgr;
+    SpecialModeBaseProcess*             mp_SpecialModeProcess;
+    bool                                m_AppAlive;
     sp<IApplicationManagerService>      m_AppMgr;
     sp<ISystemManagerService>           m_SystemMgr;
     sp<INGTPManagerService>             m_NGTPMgr;
@@ -57,11 +50,24 @@ private:
 
     void initializeSpecialModeProcess();
 
-    bool provisionSpecialMode();
-    bool unprovisionSpecialMode();
-    void setProvisioningFlag(bool flag);
-    void doAfterProvision();
-    void doAfterUnprovision();
+#else
+private:
+    static uint32_t                     m_SpecialModeType;
+    sp<sl::SLLooper>                    m_Looper;
+    sp<SpecialModeHandler>              m_Handler;
+    SpecialModeReceiverManager*         mp_ReceiverMgr;
+    SpecialModeBaseProcess*             mp_SpecialModeProcess;
+    bool                                m_AppAlive;
+    sp<IApplicationManagerService>      m_AppMgr;
+    sp<ISystemManagerService>           m_SystemMgr;
+    sp<INGTPManagerService>             m_NGTPMgr;
+    sp<IConfigurationManagerService>    m_ConfigurationMgr;
+    sp<telephony::ITelephonyService>    m_TelephonyMgr;
+    sp<SpecialModeServicesManager>      m_ServicesMgr;
+
+    void initializeSpecialModeProcess();
+
+#endif
 
 };
 #endif // _SPECIALMODE_APPLICATION_H_

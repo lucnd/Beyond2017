@@ -14,46 +14,58 @@
 
 class SpecialModeReceiverManager
 {
-    /******************** Declare Internal Class *****************************/
+
     /*Receiver event form Configuration Manager Service*/
+
+#ifdef G_TEST
+    public:
     class SpecialModeConfigurationReceiver : public BnConfigurationManagerReceiver {
-        public:
-            SpecialModeConfigurationReceiver(SpecialModeReceiverManager& rReceiverMgr) : mr_ReceiverMgr(rReceiverMgr) { }
-            virtual ~SpecialModeConfigurationReceiver() {}
+            public:
+            SpecialModeConfigurationReceiver(SpecialModeReceiverManager& receiverMgr);
+            virtual ~SpecialModeConfigurationReceiver();
             virtual void onConfigDataChanged(sp<Buffer>& buf);
 
         private:
-            SpecialModeReceiverManager& mr_ReceiverMgr;
+            SpecialModeReceiverManager& m_ReceiverMgr;
     };
+#else
+    class SpecialModeConfigurationReceiver : public BnConfigurationManagerReceiver {
 
-    /*Receiver event from WiFiManager Service*/
-    class SpecialModeWiFiReceiver : public BnWiFiManagerService
-    {
         public:
-            SpecialModeWiFiReceiver(SpecialModeReceiverManager& rReceiverMgr) : mr_ReceiverMgr(rReceiverMgr) { }
-            virtual ~SpecialModeWiFiReceiver(){}
-            virtual errno_t onWiFiReceiver(int32_t state, sp<Buffer>& playload);
+            SpecialModeConfigurationReceiver(SpecialModeReceiverManager& receiverMgr);
+            virtual ~SpecialModeConfigurationReceiver();
+            virtual void onConfigDataChanged(sp<Buffer>& buf);
+
         private:
-            SpecialModeServicesManager& mr_ReceiverMgr;
+            SpecialModeReceiverManager& m_ReceiverMgr;
     };
-    /******************** End declare internal class ********************************/
+#endif
 
 public:
+#ifdef G_TEST
+    SpecialModeReceiverManager();
+#else
     SpecialModeReceiverManager( sp<SpecialModeServicesManager> serviceMgr, sp<sl::Handler> handler);
+#endif
     virtual ~SpecialModeReceiverManager();
-    bool initializeReceiver();
+
+    void initializeReceiver();
     void releaseReceiver();
-    void setHandler(sp<sl::Handler> handler);
 
 private:
     bool                                m_IsInitialize;
-    int32_t                             m_MdmVariant;
     sp<sl::Handler>                     m_Handler;
+#ifdef G_TEST
+    public:
     sp<SpecialModeServicesManager>      m_ServicesMgr;
     sp<IConfigurationManagerService>    m_configManager;
     sp<IConfigurationManagerReceiver>   m_configReceiver;
-//    sp<IWiFiManagerService>             m_WiFiService;
-//    sp<IWiFiManagerReceiver>            m_WiFiReceiver;
+#else
+    sp<SpecialModeServicesManager>      m_ServicesMgr;
+    sp<IConfigurationManagerService>    m_configManager;
+    sp<IConfigurationManagerReceiver>   m_configReceiver;
+#endif
+
 };
 
 #endif // SPECIALMODERECEIVERMANAGER_H

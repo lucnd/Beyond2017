@@ -1,9 +1,0 @@
-#ifndef SPECIALMODEEVENT_H
-#define SPECIALMODEEVENT_H
-
-enum  SpecialModeEvent {
-    E_PROVISIONING = 1,
-    E_UNPROVISIONING = 2
-};
-
-#endif // SPECIALMODEEVENT_H

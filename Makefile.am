@@ -7,7 +7,6 @@ common_sources:= \
         SpecialModeReceiverManager.cpp \
         SpecialModeBaseProcess.cpp \
         DemoModeTimer.cpp \
-        InControlLightProcess.cpp \
         DemoModeProcess.cpp
 
 # Target name DSO

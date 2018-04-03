@@ -4,8 +4,8 @@
 SpecialModeHandler::~SpecialModeHandler(){
 }
 
+#ifndef G_TEST
 void SpecialModeHandler::handleMessage(const sp<sl::Message>& message){
-    const int32_t what = message->what;
-    mr_Application.doSpecialModeHandler(what, message);
-
+    mr_Application.doSpecialModeHandler(message);
 }
+#endif
