@@ -8,13 +8,9 @@ SpecialModeBaseProcess::SpecialModeBaseProcess() : m_Handler(NULL),mp_Applicatio
 }
 
 SpecialModeBaseProcess::~SpecialModeBaseProcess(){
-#ifdef G_TEST
-    delete mp_DemoModeTimer;
-#else
     if(mp_DemoModeTimer != NULL) {
         delete mp_DemoModeTimer;
     }
-#endif
     LOGV("## ~SpceialModeBaseProcess()++");
 }
 
@@ -22,36 +18,36 @@ void SpecialModeBaseProcess::initialize(sp<SpecialModeServicesManager> servicesM
     LOGV("## SpecialModeBaseProcess::initialize()");
     m_ServicesMgr   = servicesMgr;
     mp_Application  = pApp;
-#ifdef G_TEST
-    LOGV("## SpecialModeBaseProcess::initialize()");
-#else
     initializeProcess();
-#endif
 }
 
 std::string SpecialModeBaseProcess::getPropertyWrap(const char* name){
+
     return std::string("-1");
     // if(name != NULL) {
     //     LOGD("%s:  name[%s]", __func__, name);
-    //     return 
     //     //return mp_Application->getPropertyWrap(name);
     // }
     // char *value = "435343";
     // return NULL;
+
+//    if(name != NULL) {
+//        LOGD("%s:  name[%s]", __func__, name);
+//        return mp_Application->getPropertyWrap(name);
+//    }
+//    return NULL;
 }
 
 void SpecialModeBaseProcess::setPropertyChar(const char* name, const char* value) {
-    if(name != NULL)
-    {
+    if(name != NULL) {
         LOGD("%s:  name[%s], value[%s]", __func__, name, value);
         mp_Application->setPropertyChar(name, value);
     }
 }
 
 void SpecialModeBaseProcess::setPropertyInt(const char* name, const int32_t i_value) {
-    if(name != NULL)
-    {
+    if(name != NULL) {
         LOGD("%s:  name[%s], i_value[%d]", __func__, name, i_value);
-        // mp_Application->setPropertyInt(name, i_value);
+        mp_Application->setPropertyInt(name, i_value);
     }
 }

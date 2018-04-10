@@ -16,7 +16,6 @@ class DemoModeProcess : public SpecialModeBaseProcess
 public:
     DemoModeProcess();
     virtual ~DemoModeProcess();
-    // virtual void handleEvent(uint32_t ev);
     virtual void handleTimerEvent(int timerId);
     virtual void doSpecialModeHandler(const sp<sl::Message>& message);
     void demoModeStart();
@@ -35,35 +34,21 @@ public:
     void onWiFiStateOff();
     void onConfigChange(const sp<sl::Message>& message);
 
-#ifdef G_TEST
-public:
-    DemoModeTimerSet    m_TimerSet;
-    bool                m_pSimCheck;
-    bool                m_CheckPower;
-    bool                m_SVTRegOnDemo;
-    bool                m_SVTAlertStatus;
-    int32_t             m_RunningTime;
-    uint8_t             m_TimeUnit;
-    PowerLock*          mp_PowerLock;
+    //bring from SpeicalModeBaseProcess
 
-public:
-    virtual void initializeProcess();
-    void setDemoStatus(DemoModeStatus status);
-    void setWifiStatus(WiFiStatus status);
-    DemoModeStatus getDemoStatus();
-    DemoModeStatus m_DemoModeStatus;
-    WiFiStatus getWifiStatus();
-    WiFiStatus m_WifiStatus;
-#else
+
 private:
     DemoModeTimerSet        m_TimerSet;
-    bool                    m_pSimCheck;
     bool                    m_CheckPower;
-    bool                    m_SVTRegOnDemo;
-    bool                    m_SVTAlertStatus;
     int32_t                 m_RunningTime;
     uint8_t                 m_TimeUnit;
     PowerLock*              mp_PowerLock;
+
+    // bring from SpecialModeBaseProcess
+    sp<sl::Handler>                     m_Handler;
+    sp<SpecialModeServicesManager>      m_ServicesMgr;
+    ISpecialModeApplication*            mp_Application;
+    TimerTimeoutHandler*                mp_DemoModeTimer;
 
 protected:
     virtual void initializeProcess();
@@ -74,7 +59,6 @@ protected:
     DemoModeStatus getDemoStatus();
     DemoModeStatus      m_DemoModeStatus;
     WiFiStatus          m_WifiStatus;
-#endif
 };
 
 #endif // DEMOMODEPROCESS_H
