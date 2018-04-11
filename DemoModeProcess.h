@@ -21,11 +21,7 @@ public:
     void demoModeStart();
     void demoModeStop();
     void sendResponse(int32_t what, const sp<sl::Message>& message);
-    void checkBcallStatus();
-    void checkEcallStatus();
     void demoModeClockReset();
-    void disableBCall();
-    void disableECall();
     bool turnOnDemoMode(uint8_t timeUnit, int32_t timeValue);
     bool turnOffDemoMode();
     void lockPowerMode();
@@ -34,21 +30,12 @@ public:
     void onWiFiStateOff();
     void onConfigChange(const sp<sl::Message>& message);
 
-    //bring from SpeicalModeBaseProcess
-
-
 private:
     DemoModeTimerSet        m_TimerSet;
     bool                    m_CheckPower;
     int32_t                 m_RunningTime;
     uint8_t                 m_TimeUnit;
     PowerLock*              mp_PowerLock;
-
-    // bring from SpecialModeBaseProcess
-    sp<sl::Handler>                     m_Handler;
-    sp<SpecialModeServicesManager>      m_ServicesMgr;
-    ISpecialModeApplication*            mp_Application;
-    TimerTimeoutHandler*                mp_DemoModeTimer;
 
 protected:
     virtual void initializeProcess();

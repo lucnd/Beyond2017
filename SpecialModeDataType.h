@@ -129,4 +129,5 @@ enum  SpecialModeEvent {
     E_UNPROVISIONING = 2
 };
 
+
 #endif // SPECIALMODEDATATYPE_H

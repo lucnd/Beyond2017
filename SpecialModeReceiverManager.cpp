@@ -11,7 +11,6 @@ SpecialModeReceiverManager::SpecialModeReceiverManager (sp<SpecialModeServicesMa
     m_ServicesMgr = serviceMgr;
     m_Handler   = handler;
 
-    // register configuration event of other app: bCall, eCall, SVT
     if(m_configManager == NULL) {
         m_configReceiver = new SpecialModeConfigurationReceiver(*this);
         m_configManager = m_ServicesMgr->getConfigurationManager();
@@ -27,7 +26,7 @@ SpecialModeReceiverManager::~SpecialModeReceiverManager() {
 void SpecialModeReceiverManager::SpecialModeConfigurationReceiver::onConfigDataChanged(sp<Buffer>& buf) {
 
     LOGV("%s() onConfigDataChanged(), name_buf:%s",__func__, buf->data());
-    sp<sl::Message> messsage = m_ReceiverMgr.m_Handler->obtainMessage(RECV_MSG_FROM_CONFIG);
+    sp<sl::Message> messsage = m_ReceiverMgr.m_Handler->obtainMessage(E_FROM_CONFIG);
     if(buf->size() > 0)
     {
         messsage->buffer.setTo(buf->data(), buf->size());

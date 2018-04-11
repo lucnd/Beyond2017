@@ -11,7 +11,8 @@ static android::sp<Application>                         gApp;
 uint32_t SpecialModeApplication::m_SpecialModeType      = 0;
 
 
-SpecialModeApplication::SpecialModeApplication() : mp_SpecialModeProcess(nullptr), mp_ReceiverMgr(nullptr) { }
+SpecialModeApplication::SpecialModeApplication() : mp_SpecialModeProcess(nullptr),
+    mp_ReceiverMgr(nullptr) { }
 
 SpecialModeApplication::~SpecialModeApplication() { }
 
@@ -30,19 +31,11 @@ void SpecialModeApplication::onCreate() {
     if(mp_ReceiverMgr == NULL){
         mp_ReceiverMgr = new SpecialModeReceiverManager(m_ServicesMgr, m_Handler);
     }
-
-    // init process
-    mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
-    mp_SpecialModeProcess->initialize(m_ServicesMgr, this);
+    initializeSpecialModeProcess();
 }
 
 void SpecialModeApplication::onDestroy() {
-    LOGV("## onDestroy()++");
-
-    delete mp_SpecialModeProcess;
-    mp_SpecialModeProcess = NULL;
-    delete mp_ReceiverMgr;
-    mp_ReceiverMgr = NULL;
+    releaseSpecialModeProcess();
     ReadyToDestroy();
 }
 
@@ -55,9 +48,9 @@ void SpecialModeApplication::setSpecialModeType(uint32_t specialModeType) {
 }
 
 void SpecialModeApplication::onPostReceived(const sp<Post>& post) {
-    LOGI("SpecialModeApplication::onPostReceived : what[0x%x] arg1[%d] arg2[%d]", post->what, post->arg1, post->arg2);
-    sp<Buffer> buf_tmp = new Buffer();
-    sp<sl::Message> message = m_Handler->obtainMessage(post->what, post->arg1, post->arg2);
+    sp<sl::Message> message = m_Handler->obtainMessage(post->what,
+                                                       post->arg1,
+                                                       post->arg2);
     message->sendToTarget();
 }
 
@@ -65,6 +58,20 @@ void SpecialModeApplication::doSpecialModeHandler(const sp<sl::Message>& message
     mp_SpecialModeProcess->doSpecialModeHandler(message);
 }
 
+void SpecialModeApplication::initializeSpecialModeProcess(){
+    mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
+    mp_SpecialModeProcess->initialize(m_ServicesMgr, this);
+}
+
+void SpecialModeApplication::releaseSpecialModeProcess(){
+    delete mp_SpecialModeProcess;
+    mp_SpecialModeProcess = NULL;
+
+    if(mp_ReceiverMgr != NULL){
+        delete mp_ReceiverMgr;
+        mp_ReceiverMgr = NULL;
+    }
+}
 
 std::string SpecialModeApplication::getPropertyWrap(const char* name){
     if(name == NULL) {
