@@ -9,9 +9,8 @@ public:
     DemoModeTimer(SpecialModeBaseProcess& rProcess): mr_Process(rProcess){}
     ~DemoModeTimer(){}
     virtual void handlerFunction(int timerId);
-
-private:
     SpecialModeBaseProcess& mr_Process;
+
 };
 
 class DemoModeTimerSet
@@ -27,8 +26,6 @@ public:
     void release();
     bool startTimer(uint32_t index, uint32_t startTimeout, uint32_t cyclicTimeout=0);
     bool stopTimer(uint32_t index);
-
-private:
     bool m_InitFlag;
     Timer* mp_DemoModeTimerSet[2];
 };

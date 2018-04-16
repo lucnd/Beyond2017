@@ -16,11 +16,6 @@
 #include <services/SystemManagerService/ISystemManagerService.h>
 #include <services/SystemManagerService/ISystemManagerServiceType.h>
 
-#include "services/PowerManagerService/IPowerManagerServiceType.h"
-#include "services/PowerManagerService/IPowerManagerService.h"
-
-
-
 class SpecialModeServicesManager : public RefBase
 {
 public:
@@ -31,14 +26,16 @@ public:
     sp<IApplicationManagerService>      getApplicationManager();
     sp<ISystemManagerService>           getSystemManager();
     sp<INGTPManagerService>             getNGTPManager();
-    sp<IPowerManagerService>            getPowerManager();
 
+#ifdef G_TEST
+public:
+#else
 private:
+#endif
     sp<IConfigurationManagerService>    m_ConfigurationMgr;
     sp<IApplicationManagerService>      m_ApplicationMgr;
     sp<ISystemManagerService>           m_SystemMgr;
     sp<INGTPManagerService>             m_NGTPMgr;
-    sp<IPowerManagerService>            m_PowerMgr;
 };
 
 

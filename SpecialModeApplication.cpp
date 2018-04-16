@@ -31,11 +31,17 @@ void SpecialModeApplication::onCreate() {
     if(mp_ReceiverMgr == NULL){
         mp_ReceiverMgr = new SpecialModeReceiverManager(m_ServicesMgr, m_Handler);
     }
-    initializeSpecialModeProcess();
+
+    mp_SpecialModeProcess  = (SpecialModeBaseProcess*) new DemoModeProcess();
 }
 
 void SpecialModeApplication::onDestroy() {
-    releaseSpecialModeProcess();
+    LOGV("##onDestroy()");
+    delete mp_SpecialModeProcess;
+    mp_SpecialModeProcess = NULL;
+    delete mp_ReceiverMgr;
+    mp_ReceiverMgr =  NULL;
+
     ReadyToDestroy();
 }
 
@@ -58,24 +64,8 @@ void SpecialModeApplication::doSpecialModeHandler(const sp<sl::Message>& message
     mp_SpecialModeProcess->doSpecialModeHandler(message);
 }
 
-void SpecialModeApplication::initializeSpecialModeProcess(){
-    mp_SpecialModeProcess = (SpecialModeBaseProcess*) new DemoModeProcess();
-    mp_SpecialModeProcess->initialize(m_ServicesMgr, this);
-}
-
-void SpecialModeApplication::releaseSpecialModeProcess(){
-    delete mp_SpecialModeProcess;
-    mp_SpecialModeProcess = NULL;
-
-    if(mp_ReceiverMgr != NULL){
-        delete mp_ReceiverMgr;
-        mp_ReceiverMgr = NULL;
-    }
-}
-
 std::string SpecialModeApplication::getPropertyWrap(const char* name){
     if(name == NULL) {
-        LOGE("%s  name is NULL !", __func__);
         return NULL;
     }
     return getProperty(name);
@@ -83,18 +73,14 @@ std::string SpecialModeApplication::getPropertyWrap(const char* name){
 
 void SpecialModeApplication::setPropertyChar(const char* name, const char* value, bool sync_now){
     if(name != NULL) {
-        LOGV("Before: %s name[%s], value[%s]", __func__, name, value);
         setProperty(name, value, sync_now);
     }
-    LOGV("After: %s", __func__);
 }
 
 void SpecialModeApplication::setPropertyInt(const char* name, const int32_t i_value, bool sync_now){
     if(name != NULL) {
-        LOGV("Before: %s name[%s], i_value[%d]", __func__, name, i_value);
         setProperty(name, i_value, sync_now);
     }
-    LOGV("After: %s", __func__);
 }
 
 #ifdef __cplusplus

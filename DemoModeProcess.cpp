@@ -36,8 +36,6 @@ void DemoModeProcess::handleTimerEvent(int timerId) {
 
 void DemoModeProcess::demoModeClockReset() {
     std::string d_str("0");
-    // char d_str[32] = {0,};
-    // sprintf(d_str, "%lu", d_str[0]);
     setPropertyChar("demoModeTime", d_str.c_str());
     setPropertyInt("demoModeUserTime", std::stoi(d_str));
 }
@@ -76,11 +74,8 @@ void DemoModeProcess::initializeProcess()
 {
     LOGD("## DemoModeProcess::initializeProcess()");
     mp_DemoModeTimer = new DemoModeTimer(*this);
-    m_TimerSet.initialize(mp_DemoModeTimer);
-    demoModeClockReset();
     setDemoStatus(E_DEMOMODE_INIT);
 }
-
 
 bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
     if(getWifiStatus() != E_CONNECTED){
@@ -242,7 +237,6 @@ void DemoModeProcess::onConfigChange(const sp<sl::Message>& message) {
         }
     }
 }
-
 void DemoModeProcess::lockPowerMode(){
     if(m_CheckPower) {
         LOGI("PowerMode already lock");

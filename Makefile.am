@@ -4,6 +4,7 @@ common_sources:= \
         SpecialModeApplication.cpp \
         SpecialModeServicesManager.cpp \
         SpecialModeHandler.cpp \
+        SpecialModeConfigurationReceiver.cpp \
         SpecialModeReceiverManager.cpp \
         SpecialModeBaseProcess.cpp \
         DemoModeTimer.cpp \

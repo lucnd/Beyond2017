@@ -5,6 +5,7 @@ libspecialmode_a_SOURCES = \
     $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeApplication.cpp \
     $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeServicesManager.cpp \
     $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeHandler.cpp \
+    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeConfigurationReceiver.cpp \
     $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeReceiverManager.cpp \
     $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeBaseProcess.cpp \
     $(WORKSPACE)/lge/apps/SpecialMode/DemoModeTimer.cpp \
@@ -33,13 +34,11 @@ libspecialmode_a_CXXFLAGS = \
     --coverage
 
 specialmode_test_SOURCES = \
-    DemoModeProcess_test.cpp \
-    SpecialModeApplication_test.cpp \
-    SpecialModeReceiverManager_test.cpp \ 
-    SpecialModeServicesManager_test.cpp \
-    DemoModeBaseProcess_test.cpp \
-    DemoModeTimer_test.cpp
-    
+    ConfigurationReceiver_test.cpp \
+    ReceiverManager_test.cpp \
+    DemoModeTimer_test \
+    SpecialModeBaseProcess_test
+
 specialmode_test_CPPFLAGS = \
     $(libspecialmode_a_CPPFLAGS) \
     -I$(WORKSPACE)/lge/apps/SpecialMode
@@ -79,9 +78,9 @@ specialmode_test_LDFLAGS = \
     -lcpptoed \
     -losscpp \
     -lingtp \
-    -lgtest_main \
-    -lgtest \
+    -lgmock_main \
     -lpthread \
     --coverage
 
 requiredlibs = -lpthread
+

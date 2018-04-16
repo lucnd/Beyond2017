@@ -16,7 +16,6 @@
 #include <services/ApplicationManagerService/ISystemPostReceiver.h>
 #include <services/ApplicationManagerService/IApplicationManagerService.h>
 
-
 class SpecialModeApplication : public ISpecialModeApplication, public Application {
 
 public:
@@ -26,7 +25,6 @@ public:
     virtual void onDestroy();
     virtual void onPostReceived(const sp<Post>& post);
     virtual void doSpecialModeHandler(const sp<sl::Message>& message);
-    void releaseSpecialModeProcess();
     void setPropertyChar(const char* name, const char* value, bool sync_now);
     void setPropertyInt(const char* name, const int32_t i_value, bool sync_now);
     std::string getPropertyWrap(const char* name) override;
@@ -46,8 +44,6 @@ private:
     sp<INGTPManagerService>             m_NGTPMgr;
     sp<IConfigurationManagerService>    m_ConfigurationMgr;
     sp<SpecialModeServicesManager>      m_ServicesMgr;
-
-    void initializeSpecialModeProcess();
 };
 
 #endif // _SPECIALMODE_APPLICATION_H_

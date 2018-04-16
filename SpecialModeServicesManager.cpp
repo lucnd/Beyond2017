@@ -3,9 +3,10 @@
 #include <Log.h>
 
 
-
-
-SpecialModeServicesManager::SpecialModeServicesManager() : m_ConfigurationMgr(NULL), m_ApplicationMgr(NULL), m_SystemMgr(NULL), m_NGTPMgr(NULL), m_PowerMgr(NULL)
+SpecialModeServicesManager::SpecialModeServicesManager() : m_ConfigurationMgr(NULL), m_ApplicationMgr(NULL), m_SystemMgr(NULL), m_NGTPMgr(NULL)
+#ifdef G_TEST
+{}
+#else
 {
     LOGI("## SpecialModeServicesManager created!!");
 
@@ -17,10 +18,8 @@ SpecialModeServicesManager::SpecialModeServicesManager() : m_ConfigurationMgr(NU
                                                                         ->getService(String16(SYSTEM_SRV_NAME)));
     m_NGTPMgr           = interface_cast<INGTPManagerService>(defaultServiceManager()
                                                                         ->getService(String16(NGTP_SRV_NAME)));
-    m_PowerMgr          = interface_cast<IPowerManagerService>(defaultServiceManager()
-                                                                        ->getService(String16(POWER_SRV_NAME)));
-
 }
+#endif  // G_TEST
 
 SpecialModeServicesManager::~SpecialModeServicesManager(){
 
@@ -42,6 +41,3 @@ sp<INGTPManagerService> SpecialModeServicesManager::getNGTPManager(){
     return m_NGTPMgr;
 }
 
-sp<IPowerManagerService> SpecialModeServicesManager::getPowerManager(){
-    return m_PowerMgr;
-}

@@ -18,8 +18,7 @@ private:
     ISpecialModeApplication& mr_Application;
 
 public:
-    SpecialModeHandler(sp<sl::SLLooper>& looper, ISpecialModeApplication& service)
-        : Handler(looper),mr_Application(service){}
+    SpecialModeHandler(sp<sl::SLLooper>& looper, ISpecialModeApplication& service) : Handler(looper),mr_Application(service){}
     virtual void handleMessage(const sp<sl::Message>& message);
     virtual ~SpecialModeHandler();
 };

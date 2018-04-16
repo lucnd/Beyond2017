@@ -12,25 +12,11 @@
 class SpecialModeReceiverManager
 {
 public:
-    class SpecialModeConfigurationReceiver : public BnConfigurationManagerReceiver {
-
-    public:
-        SpecialModeConfigurationReceiver(SpecialModeReceiverManager& receiverMgr);
-        virtual ~SpecialModeConfigurationReceiver();
-        virtual void onConfigDataChanged(sp<Buffer>& buf);
-
-    private:
-        SpecialModeReceiverManager& m_ReceiverMgr;
-    };
-
-public:
-    SpecialModeReceiverManager( sp<SpecialModeServicesManager> serviceMgr, sp<sl::Handler> handler);
+    SpecialModeReceiverManager(sp<SpecialModeServicesManager> serviceMgr, sp<sl::Handler> handler);
     virtual ~SpecialModeReceiverManager();
 
 private:
-    sp<sl::Handler>                     m_Handler;
     sp<SpecialModeServicesManager>      m_ServicesMgr;
-    sp<IConfigurationManagerService>    m_configManager;
     sp<IConfigurationManagerReceiver>   m_configReceiver;
 };
 

@@ -20,20 +20,10 @@ void SpecialModeBaseProcess::initialize(sp<SpecialModeServicesManager> servicesM
 }
 
 std::string SpecialModeBaseProcess::getPropertyWrap(const char* name){
-
-    return std::string("-1");
-    // if(name != NULL) {
-    //     LOGD("%s:  name[%s]", __func__, name);
-    //     //return mp_Application->getPropertyWrap(name);
-    // }
-    // char *value = "435343";
-    // return NULL;
-
-//    if(name != NULL) {
-//        LOGD("%s:  name[%s]", __func__, name);
-//        return mp_Application->getPropertyWrap(name);
-//    }
-//    return NULL;
+    if(name != NULL) {
+        return mp_Application->getPropertyWrap(name);
+    }
+    return NULL;
 }
 
 void SpecialModeBaseProcess::setPropertyChar(const char* name, const char* value) {
