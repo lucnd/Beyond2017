@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <DemoModeTimer.h>
+#include "../DemoModeTimer.h"
 
 TEST(DemoModeTimerTest, constructor_001)
 {
@@ -11,7 +11,7 @@ TEST(DemoModeTimerTest, constructor_001)
 
 TEST(DemoModeTimerTest, initialize_001)
 {
-    TimerTimeoutHandler *pTimerHandler;
+    TimerTimeoutHandler *pTimerHandler = nullptr;
     DemoModeTimerSet timer;
     timer.initialize(pTimerHandler);
 }

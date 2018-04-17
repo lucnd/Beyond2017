@@ -8,13 +8,14 @@
 static const uint32_t HOUR_TO_SEC   = 0x0E10;
 static const uint8_t TIME_SEC       = 0x00;
 static const uint8_t TIME_HOUR      = 0x01;
-static char* timeUnit_str[]         = {"SECOND", "HOUR"};
+static const char* timeUnit_str[]   = {"SECOND", "HOUR"};
 static uint8_t eCallFlag            = 0;
 static uint8_t bCallFlag            = 0;
-struct timespec tstart_demo         = {0,};
+struct timespec tstart_demo         = {};
 
-DemoModeProcess::DemoModeProcess() : mp_PowerLock(NULL) {
+DemoModeProcess::DemoModeProcess() {
     LOGI("## DemoModeProcess create.");
+    m_CheckPower = false;
     m_RunningTime = 0;
     m_TimeUnit = TIME_HOUR;
     m_DemoModeStatus = E_DEMOMODE_INIT;
@@ -46,13 +47,13 @@ void DemoModeProcess::doSpecialModeHandler(const sp<sl::Message>& message){
 
     switch (message->what) {
     case DEMOMODE_SLDD_ON:
-        turnOnDemoMode((uint8_t)arg2, arg1);
+        turnOnDemoMode(static_cast<uint8_t>(arg2), arg1);
         break;
     case DEMOMODE_SLDD_OFF:
         turnOffDemoMode();
         break;
     case DEMOMODE_SLDD_TIME_UNIT:
-        m_TimeUnit = (uint8_t)arg1;
+        m_TimeUnit = static_cast<uint8_t>(arg1);
         break;
     case DEMOMODE_SLDD_DEMO_STATUS:
         break;
@@ -218,7 +219,7 @@ void DemoModeProcess::onWiFiStateOff(){
 }
 
 void DemoModeProcess::onConfigChange(const sp<sl::Message>& message) {
-    char* name = message->buffer.data();
+    char* name = reinterpret_cast<char*>(message->buffer.data());
     LOGI("Configuration data change buffer.data = %s", name);
     if(strcmp(DEMOMODE_APP_MODE_BC, name) == 0 || strcmp(DEMOMODE_APP_MODE_EC, name)) {
 

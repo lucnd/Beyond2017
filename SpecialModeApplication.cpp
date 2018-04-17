@@ -11,8 +11,7 @@ static android::sp<Application>                         gApp;
 uint32_t SpecialModeApplication::m_SpecialModeType      = 0;
 
 
-SpecialModeApplication::SpecialModeApplication() : mp_SpecialModeProcess(nullptr),
-    mp_ReceiverMgr(nullptr) { }
+SpecialModeApplication::SpecialModeApplication() : mp_ReceiverMgr(nullptr), mp_SpecialModeProcess(nullptr) { }
 
 SpecialModeApplication::~SpecialModeApplication() { }
 
@@ -32,7 +31,7 @@ void SpecialModeApplication::onCreate() {
         mp_ReceiverMgr = new SpecialModeReceiverManager(m_ServicesMgr, m_Handler);
     }
 
-    mp_SpecialModeProcess  = (SpecialModeBaseProcess*) new DemoModeProcess();
+    mp_SpecialModeProcess  = new DemoModeProcess();
 }
 
 void SpecialModeApplication::onDestroy() {

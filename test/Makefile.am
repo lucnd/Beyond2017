@@ -1,59 +1,75 @@
+# Pthread should be enabled everywhere when Gtest is used
+AM_CPPFLAGS = \
+    -isystem $(srcdir)/gmockfused \
+    -std=c++11 \
+    -pthread
+
+
 bin_PROGRAMS = specialmode-test
-noinst_LIBRARIES = libspecialmode.a
+noinst_LIBRARIES = libgmock-gtest-all.a
 
-libspecialmode_a_SOURCES = \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeApplication.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeServicesManager.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeHandler.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeConfigurationReceiver.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeReceiverManager.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/SpecialModeBaseProcess.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/DemoModeTimer.cpp \
-    $(WORKSPACE)/lge/apps/SpecialMode/DemoModeProcess.cpp
 
-libspecialmode_a_CPPFLAGS = \
+app_sources = \
+    ../SpecialModeApplication.cpp \
+    ../SpecialModeServicesManager.cpp \
+    ../SpecialModeHandler.cpp \
+    ../SpecialModeConfigurationReceiver.cpp \
+    ../SpecialModeReceiverManager.cpp \
+    ../SpecialModeBaseProcess.cpp \
+    ../DemoModeTimer.cpp \
+    ../DemoModeProcess.cpp
+
+test_sources = \
+    ConfigurationReceiver_test.cpp \
+    ReceiverManager_test.cpp \
+    ServicesManager_test.cpp \
+    DemoModeTimer_test.cpp \
+    SpecialModeBaseProcess_test.cpp \
+    DemoModeProcess_test.cpp
+
+specialmode_test_SOURCES = $(app_sources) $(test_sources)
+
+specialmode_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
     -DG_TEST \
-    -I$(SDKTARGETSYSROOT)/usr/include/servicelayer \
-    -I$(WORKSPACE)/lge/services/include/services/TelephonyManagerService \
-    -I$(WORKSPACE)/lge/services/include \
-    -I$(WORKSPACE)/lge/services/NGTPManagerService \
-    -I$(WORKSPACE)/lge/services/NGTPManagerService/include \
-    -I$(WORKSPACE)/lge/services/NGTPManagerService/asn2cpp-svc \
-    -I$(stincdir)/libxml2 \
-    -I$(stincdir)/services/TelephonyManagerService \
     -D_STDATOMIC_HAVE_ATOMIC \
     -D_MORE_MARSHM \
     -DHAVE_SYS_UIO_H \
-    -std=c++11
+    -isystem $(WORKSPACE)/lge/services/include/services/TelephonyManagerService \
+    -isystem $(WORKSPACE)/lge/services/include \
+    -isystem $(WORKSPACE)/lge/services/NGTPManagerService \
+    -isystem $(WORKSPACE)/lge/services/NGTPManagerService/include \
+    -isystem $(WORKSPACE)/lge/services/NGTPManagerService/asn2cpp-svc \
+    -isystem $(stincdir)/libxml2 \
+    -isystem $(stincdir)/services/TelephonyManagerService
 
-libspecialmode_a_CXXFLAGS = \
-    -Wall \
-    -std=c++11 \
-    -Wno-unused-parameter \
-    -fpermissive \
-    --coverage
-
-specialmode_test_SOURCES = \
-    ConfigurationReceiver_test.cpp \
-    ReceiverManager_test.cpp \
-    DemoModeTimer_test \
-    SpecialModeBaseProcess_test
-
-specialmode_test_CPPFLAGS = \
-    $(libspecialmode_a_CPPFLAGS) \
-    -I$(WORKSPACE)/lge/apps/SpecialMode
-
-specialmode_test_CXXFLAGS =
+specialmode_test_CXXFLAGS = \
     -Wall \
     -Wextra \
-    -Wno-unused-parameter \
-    -pedantic \
-    -std=c++11 \
-    -O2
+    -Wpedantic \
+    -Werror \
+    -Wmissing-include-dirs \
+    -Wformat=2 \
+    -Wold-style-cast \
+    -Wuseless-cast \
+    -Wcast-align \
+    -Wctor-dtor-privacy \
+    -Woverloaded-virtual \
+    -Winit-self \
+    -Wunused-parameter \
+    -Wshadow \
+    -Wlogical-op \
+    -Wdouble-promotion \
+    -Wfloat-equal \
+    -Wredundant-decls \
+    -Wundef \
+    -Wc++14-compat \
+    -fno-elide-constructors \
+    --coverage
 
-specialmode_test_LDADD = libspecialmode.a
-
-specialmode_test_LDFLAGS = \
+specialmode_test_LDADD = \
+    libgmock-gtest-all.a \
+    -lpthread \
     -lpugixml \
     -lapplication \
     -liapplication \
@@ -77,10 +93,19 @@ specialmode_test_LDFLAGS = \
     -lproperty \
     -lcpptoed \
     -losscpp \
-    -lingtp \
-    -lgmock_main \
-    -lpthread \
+    -lingtp
+
+specialmode_test_LDFLAGS = \
     --coverage
 
-requiredlibs = -lpthread
+
+libgmock_gtest_all_a_SOURCES = \
+    gmockfused/custom_main.cpp \
+    gmockfused/gmock-gtest-all.cc \
+    gmockfused/gtest/gtest.h \
+    gmockfused/gmock/gmock.h
+
+libgmock_gtest_all_a_CXXFLAGS = -O2
+
+requiredlibs = -lpthread -lgcov
 

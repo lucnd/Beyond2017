@@ -1,4 +1,4 @@
-#include "SpecialModeReceiverManager.h"
+#include "../SpecialModeReceiverManager.h"
 #include "doubles/MockConfigurationManagerService.h"
 #include "doubles/PartialMockHandler.h"
 #include "utils/makeSp.h"

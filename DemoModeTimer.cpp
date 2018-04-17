@@ -36,7 +36,7 @@ void DemoModeTimerSet::release()
 }
 
 bool DemoModeTimerSet::startTimer(uint32_t index, uint32_t startTimeout, uint32_t cyclicTimeout){
-    LOGI("DemoModeTimerSet startTimer(), index[%d], timeout[%d sec] ====================", index, startTimeout);
+    LOGI("DemoModeTimerSet startTimer(), index[%d], timeout[%d sec], cyclicTimeout[%d] ====================", index, startTimeout, cyclicTimeout);
 #ifndef G_TEST
     mp_DemoModeTimerSet[index]->setDuration(startTimeout, cyclicTimeout);
     mp_DemoModeTimerSet[index]->start();
@@ -46,7 +46,7 @@ bool DemoModeTimerSet::startTimer(uint32_t index, uint32_t startTimeout, uint32_
 
 bool DemoModeTimerSet::stopTimer(uint32_t index){
     LOGI("DemoModeTimerSet %s(), index[%d] ", __func__, index);
-#ifdef G_TEST
+#ifndef G_TEST
     mp_DemoModeTimerSet[index]->stop();
 #endif
     return true;
