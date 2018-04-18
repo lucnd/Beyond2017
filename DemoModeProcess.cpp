@@ -84,11 +84,13 @@ bool DemoModeProcess::turnOnDemoMode(uint8_t timeUnit, int32_t timeValue) {
         setWifiStatus(E_DISCONNECTED);
         return false;
     }
+#ifndef G_TEST
     if(-1 == clock_gettime(CLOCK_MONOTONIC, &tstart_demo)) {
         LOGE("%s: Failed to call clock_gettime",__func__);
         demoModeClockReset();
         return false;
     }
+#endif
     else {
          char d_str[32] = {0};
          LOGD("DemoModeStart() ==> clock_gettime : %ld, user_settime: %d, mTimeUnit[%s]", tstart_demo.tv_sec, timeValue, timeUnit_str[timeUnit]);

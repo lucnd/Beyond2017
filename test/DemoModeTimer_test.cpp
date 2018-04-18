@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "../DemoModeTimer.h"
+#include "../SpecialModeBaseProcess.h"
+#include "../DemoModeProcess.h"
 
 TEST(DemoModeTimerTest, constructor_001)
 {
@@ -57,3 +59,4 @@ TEST(DemoModeTimerTest, stopTimer_002)
     DemoModeTimerSet timer;
     EXPECT_FALSE(timer.stopTimer(index));
 }
+

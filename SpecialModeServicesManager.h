@@ -27,9 +27,7 @@ public:
     sp<ISystemManagerService>           getSystemManager();
     sp<INGTPManagerService>             getNGTPManager();
 
-#ifdef G_TEST
-public:
-#else
+#ifndef G_TEST
 private:
 #endif
     sp<IConfigurationManagerService>    m_ConfigurationMgr;

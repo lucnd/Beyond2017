@@ -20,6 +20,7 @@ app_sources = \
     ../DemoModeProcess.cpp
 
 test_sources = \
+    Handler_test.cpp \
     ConfigurationReceiver_test.cpp \
     ReceiverManager_test.cpp \
     ServicesManager_test.cpp \

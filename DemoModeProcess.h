@@ -31,30 +31,19 @@ public:
     void onConfigChange(const sp<sl::Message>& message);
 #ifdef G_TEST
 public:
-    DemoModeTimerSet        m_TimerSet;
-    bool                    m_CheckPower;
-    int32_t                 m_RunningTime;
-    uint8_t                 m_TimeUnit;
-    PowerLock*              mp_PowerLock;
-
-public:
-    virtual void initializeProcess();
-
-    void setDemoStatus(DemoModeStatus status);
-    void setWifiStatus(WiFiStatus status);
-    WiFiStatus getWifiStatus();
-    DemoModeStatus getDemoStatus();
-    DemoModeStatus      m_DemoModeStatus;
-    WiFiStatus          m_WifiStatus;
 #else
 private:
+#endif
     DemoModeTimerSet        m_TimerSet;
     bool                    m_CheckPower;
     int32_t                 m_RunningTime;
     uint8_t                 m_TimeUnit;
     PowerLock*              mp_PowerLock;
-
+#ifdef G_TEST
+public:
+#else
 protected:
+#endif
     virtual void initializeProcess();
 
     void setDemoStatus(DemoModeStatus status);
@@ -63,7 +52,6 @@ protected:
     DemoModeStatus getDemoStatus();
     DemoModeStatus      m_DemoModeStatus;
     WiFiStatus          m_WifiStatus;
-#endif
 };
 
 #endif // DEMOMODEPROCESS_H
